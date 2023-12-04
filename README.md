@@ -19,6 +19,10 @@
 - NoSQL
   - MongoDB
 
+## Repo format
+- `client` is frontend
+- `server` is backend
+
 ## Code format
 | use case | format |
 | --- | --- |
