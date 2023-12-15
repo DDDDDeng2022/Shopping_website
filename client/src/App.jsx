@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Content from './components/Content'
+import './App.css';
 
+/**
+ * todo:
+ * 1、添加一个isLogin的状态，并传给Header，初始化为false
+ * 2、创建一个callback function，用来给子组件修改isLogin的值，据情况而定，如果传递层数过多可以考虑使用redux或useContext
+ */
+
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 function App() {
-  const [count, setCount] = useState(0)
-
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+      primary: {
+        main: "#1976d2",
+      },
+    },
+  });
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ThemeProvider theme={darkTheme}>
+      <div className="container">
+        <Header />
+        <Content />
+        <Footer />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </ThemeProvider>
   )
 }
 
