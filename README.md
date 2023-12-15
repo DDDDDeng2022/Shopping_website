@@ -19,6 +19,7 @@
 ##### Front-end web application framework
 
 - React
+  - Material UI
 
 ##### Databases
 
@@ -31,12 +32,27 @@
 - `server` is backend
 
 ```
-+-- client
-+-- server
-+-- docs
-	+-- codingFormat.md
-	+-- environmentSetup.md
-+-- .gitignore
-+-- README.md
-+-- Shopping_website.png
+├── README.md
+├── .env                        // personal tokens
+├── Shopping_website.png        // export png of deign mind note
+├── docs                        // saved documents
+│   ├── codingFormat.md
+│   ├── environmentSetup.md
+│   └── usefulCommands.md
+├── client                      // Frontend repo
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   └── src
+└── server                      // Backend repo
+    ├── package-lock.json
+    ├── package.json
+    ├── server.js
+    ├── db
+    │   ├── connectDB.js
+    │   ├── schema.js
+    │   └── user
+    └── src
+        ├── user
+        └──
 ```
