@@ -23,18 +23,22 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
+        required: 'Password is required',
     },
-    sign_up: {
+    signup_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
+    last_login_at: {
         type: Date
-    },
-    last_login: {
-        type: Date
-    },
-    portrait: {
-
     },
     shipping_address: {
-        type: String
+        type: mongoose.Types.ObjectId,
+        ref: "ShippingAddress"
     },
     orders: [{
         type: mongoose.Types.ObjectId,
@@ -56,10 +60,41 @@ const roleSchema = new mongoose.Schema({
     }
 })
 
+const shippingAddressSchema = new mongoose.Schema({
+    firstName: {
+        type: String,
+        required: 'Firstname is required.'
+    },
+    lastName: {
+        type: String,
+        required: 'Lastname is required.'
+    },
+    address: {
+        type: String,
+        required: 'Shipping address is required.'
+    },
+    city: {
+        type: String,
+        required: 'City is required.'
+    },
+    state: {
+        type: String,
+        required: 'State is required.'
+    },
+    postalCode: {
+        type: String,
+        required: 'Postal code is required.'
+    },
+    country: {
+        type: String,
+        required: 'Country is required.'
+    }
+})
+
 const User = mongoose.model("User", userSchema);
 const Role = mongoose.model("Role", roleSchema);
+const ShippingAddress = mongoose.model("ShippingAddress", shippingAddressSchema);
 
 export default {
     User,
-    Role
 }
