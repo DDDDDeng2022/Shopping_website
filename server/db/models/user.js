@@ -1,4 +1,8 @@
 import mongoose from 'mongoose';
+import Role from './role';
+import ShippingAddress from './shippingAddress';
+import Order from './order';
+import Cart from './cart';
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -50,51 +54,6 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const roleSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String
-    }
-})
-
-const shippingAddressSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        required: 'Firstname is required.'
-    },
-    lastName: {
-        type: String,
-        required: 'Lastname is required.'
-    },
-    address: {
-        type: String,
-        required: 'Shipping address is required.'
-    },
-    city: {
-        type: String,
-        required: 'City is required.'
-    },
-    state: {
-        type: String,
-        required: 'State is required.'
-    },
-    postalCode: {
-        type: String,
-        required: 'Postal code is required.'
-    },
-    country: {
-        type: String,
-        required: 'Country is required.'
-    }
-})
-
 const User = mongoose.model("User", userSchema);
-const Role = mongoose.model("Role", roleSchema);
-const ShippingAddress = mongoose.model("ShippingAddress", shippingAddressSchema);
 
-export default {
-    User,
-}
+export default User;
