@@ -1,13 +1,15 @@
 import express from "express";
+import auth from "../middleware/auth";
 
 const router = express.Router();
 
-router.get('/');
+// router.get('/');
+// Do we really need getAllUsers?
 
-router.get('/:id');
+router.get('/:id', auth);
 
-router.put('/:id');
+router.put('/:id', auth);
 
-router.delete('/:id');
+router.delete('/:id', auth);
 
 export default router;
