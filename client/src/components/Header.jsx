@@ -10,7 +10,6 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
@@ -75,7 +74,7 @@ export default function Header() {
                              2、添加相关点击事件，点击事件应该触发一个Dialog进行操作的确认。
                                 在此处根据state render不同的的Dialog组件，
                                 如
-                                    <SignOutDialog/>(只需包含“确认退出登录”等信息)
+                                    <SignOutDialog/>(只需包含“确认退出登录”等信息),可能需要使用useCallback进行信息验证
                                     <SignOutDialog/>，(Material UI参考Dialog,TextFiled)
                                         其中又包含<SignUpDialog/><ForgetPwdDialog/><PwdSentDialog/>等组件
                                 在创建相关Dialog的时候我们可以将这些组件单独放在一个新的文件夹
