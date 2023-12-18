@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        required: "reated time is required "
+        default: Date.now,
     },
     updatedAt: {
         type: Date,
