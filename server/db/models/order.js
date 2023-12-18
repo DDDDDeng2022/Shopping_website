@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const Item = require('./itemSchema');
-const ShippingAddress = require('./shippingAddress');
+import mongoose from 'mongoose';
+import Item from './item.js';
+import ShippingAddress from './shippingAddress.js';
 
 
 const orderSummarySchema = new mongoose.Schema({
@@ -45,7 +45,8 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model('Order',orderSchema);
 const OrderSummary = mongoose.model('OrderSummary', orderSummarySchema);
-module.exports = {
+export {
     Order,
     OrderSummary
 };
+
