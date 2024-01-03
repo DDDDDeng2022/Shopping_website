@@ -6,7 +6,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Grid from "@mui/material/Unstable_Grid2";
-
+import Link from '@mui/material/Link';
 const pages = ["Contact us", "Privacy Policies", "Help"];
 
 /*
@@ -48,19 +48,26 @@ export default function Footer() {
 
                 <Grid container columnSpacing={1} sx={{ order: { xs: 1, sm: 2 } }}>
                     <Grid>
-                        <IconButton color="inherit">
-                            <YouTubeIcon fontSize="small" />
-                        </IconButton>
+                        <Link href=" https://www.youtube.com/" color="inherit" underline="none" target="_blank">
+                            <IconButton color="inherit">
+                                <YouTubeIcon fontSize="small" />
+                            </IconButton>
+                        </Link>
+                    </Grid>
+
+                    <Grid>
+                        <Link href=" https://www.twitter.com/" color="inherit" underline="none" target="_blank">
+                            <IconButton color="inherit">
+                                <TwitterIcon fontSize="small" />
+                            </IconButton>
+                        </Link>
                     </Grid>
                     <Grid>
-                        <IconButton color="inherit">
-                            <TwitterIcon fontSize="small" />
-                        </IconButton>
-                    </Grid>
-                    <Grid>
-                        <IconButton color="inherit">
-                            <FacebookIcon fontSize="small" />
-                        </IconButton>
+                        <Link href=" https://www.facebook.com/" color="inherit" underline="none" target="_blank">
+                            <IconButton color="inherit">
+                                <FacebookIcon fontSize="small" />
+                            </IconButton>
+                        </Link>
                     </Grid>
                 </Grid>
 
