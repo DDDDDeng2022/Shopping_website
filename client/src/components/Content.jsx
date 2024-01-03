@@ -23,13 +23,13 @@ const StyledPagination = styled(Pagination)({
     border: "1px #ccc solid",
     borderRadius: "5px",
     "& .MuiPaginationItem-root": {
-        color: "#1976d2", // 非选中页码的颜色
+        color: "#1976d2",
         margin: "0",
         borderRadius: "0",
         borderLeft: "1px #ccc solid",
     },
     "& .MuiPaginationItem-root.Mui-selected": {
-        color: "white", // 选中页码的颜色
+        color: "white",
     },
 });
 const StyledFormControl = styled(FormControl)({
@@ -184,5 +184,3 @@ function Content() {
 }
 
 export default Content
-
-

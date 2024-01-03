@@ -61,7 +61,7 @@ function ProductItem({ product }) {
                     {`$${product ? product.price.toFixed(2) : ""}`}
                 </Typography>
             </CardContent>
-            <CardActions sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: "0" }}>
+            <CardActions sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: "0", flexWrap: 'wrap' }}>
                 <StyledBox>
                     <StyledButtonGroup disableElevation variant="contained">
                         <Button size="small"><RemoveRoundedIcon color="action" sx={{ fontSize: 20 }} /></Button>

@@ -45,7 +45,6 @@ export default function Footer() {
                     </Typography>
                     {/* <Item>©2022 All Rights Reserved.</Item> */}
                 </Grid>
-
                 <Grid container columnSpacing={1} sx={{ order: { xs: 1, sm: 2 } }}>
                     <Grid>
                         <Link href=" https://www.youtube.com/" color="inherit" underline="none" target="_blank">
@@ -70,7 +69,6 @@ export default function Footer() {
                         </Link>
                     </Grid>
                 </Grid>
-
                 <Grid container columnSpacing={1} sx={{ order: { xs: 2, sm: 3 } }}>
                     {pages.map((page) => (
                         // eslint-disable-next-line react/jsx-key
