@@ -9,19 +9,19 @@ const Img = styled("img")(({ theme }) => ({
     display: "block",
     maxWidth: "500px",
     maxHeight: "500px",
-    height: "100%",
-    objectFit: "cover",
+    aspectRatio: "1 / 1",
+    objectFit: "cover", // 保证图片不失真
     [theme.breakpoints.down('md')]: {
         width: "100%",
-        maxWidth: 'calc(100% - 40px)',
-        maxHeight: 'calc(100% - 40px)',
-        margin: "20px",
+        maxWidth: 'calc(min(100% - 40px,500px))',
+        maxHeight: 'calc(min(100% - 40px,500px))',
+        padding: "20px",
     },
     [theme.breakpoints.up('md')]: {
         width: "45%",
-        maxWidth: 'calc(100% - 80px)',
-        maxHeight: 'calc(100% - 80px)',
-        margin: "40px"
+        maxWidth: "500px",
+        maxHeight: "500px",
+        padding: "40px"
     }
 }));
 
@@ -35,6 +35,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
         fontSize: '30px',
     },
 }));
+
 function ProductDetailPage() {
     let { id } = useParams();
     const [product, setProduct] = React.useState(null);
@@ -66,8 +67,16 @@ function ProductDetailPage() {
                     alignItems: 'flex-start',
                 }} >
                     <Img alt="complex" src={product.link} />
-                    <Grid container direction="column" spacing={2} sx={{ marginTop: "40px", marginLeft: "20px", marginRight: "80px", padding: "0" }}>
-                        <Grid item >
+                    <Grid container direction="column"
+                        sx={{
+                            paddingTop: { md: "40px", xs: "0px" },
+                            paddingLeft: "20px",
+                            paddingRight: {
+                                md: "80px",
+                                xs: "20px"
+                            },
+                        }}>
+                        <Grid item>
                             <Typography variant="caption" sx={{ color: "#7d7d7d" }}>
                                 Category1
                             </Typography>
@@ -94,7 +103,6 @@ function ProductDetailPage() {
                                     xs: '13px',
                                     sm: '16px',
                                 },
-                                marginRight: "20px",
                                 fontFamily: "sans-serif",
                                 marginTop: "10px",
                                 marginBottom: {
