@@ -3,7 +3,7 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography, Grid, Bo
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import { styled } from '@mui/material/styles'
-
+import { useNavigate } from 'react-router-dom';
 const StyledTypography = styled(Typography)({
     color: "grey",
     fontSize: "15px",
@@ -39,17 +39,16 @@ const StyledButton = styled(Button)({
 });
 
 function ProductItem({ product }) {
-    const [quantity, setQuantity] = React.useState(1);
-    const handleDecrease = () => {
-        //  todo 联合购物车使用
+    const navigate = useNavigate();
+    const handleClick = () => {
+        console.log('card clicked');
+        navigate(`/product/${product._id}`);
+
     };
-    const handleIncrease = () => {
-        //  todo 联合购物车使用
-    }
     return (
-        <Card sx={{ backgroundColor: "white", padding: "8px", border: "1px solid #ccc" }}>
+        <Card sx={{ backgroundColor: "white", padding: "8px", border: "1px solid #ccc" }} onClick={handleClick}>
             <CardMedia
-                sx={{ height: 130 }}
+                sx={{ height: 120 }}
                 image={product && product.link ? product.link : ""}
                 title={product ? product.name : ""}
             />
@@ -61,26 +60,38 @@ function ProductItem({ product }) {
                     {`$${product ? product.price.toFixed(2) : ""}`}
                 </Typography>
             </CardContent>
-            <CardActions sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: "0", flexWrap: 'wrap' }}>
-                <StyledBox>
-                    <StyledButtonGroup disableElevation variant="contained">
-                        <Button size="small"><RemoveRoundedIcon color="action" sx={{ fontSize: 20 }} /></Button>
-                        <StyledButton size="small" disabled>{quantity}</StyledButton>
-                        <Button size="small"><AddRoundedIcon sx={{ fontSize: 20 }} color="action" /></Button>
-                    </StyledButtonGroup>
-                </StyledBox>
-                <Box>
-                    <Button size="small" fullWidth sx={{ backgroundColor: "#f9fafb", color: "grey", border: "1px solid #ccc" }}>Edit</Button>
-                </Box>
-            </CardActions>
-
-
+            <ParoductButton product={product}></ParoductButton>
         </Card>
     );
 }
 
+export function ParoductButton({ product }) {
+    const [quantity, setQuantity] = React.useState(1);
+    const handleDecrease = (e) => {
+        //  todo 联合购物车使用
+        e.stopPropagation();
+        setQuantity(q => q - 1);
+    };
+    const handleIncrease = (e) => {
+        //  todo 联合购物车使用
+        e.stopPropagation();
+        setQuantity(q => q + 1);
+    }
+    return <CardActions sx={{ display: 'flex', alignItems: 'center', padding: "0", flexWrap: 'wrap', maxWidth: "300px" }}>
+        <StyledBox>
+            <StyledButtonGroup disableElevation variant="contained">
+                <Button size="small" onClick={handleDecrease}><RemoveRoundedIcon color="action" sx={{ fontSize: 20 }} /></Button>
+                <StyledButton size="small" disabled>{quantity}</StyledButton>
+                <Button size="small" onClick={handleIncrease}><AddRoundedIcon sx={{ fontSize: 20 }} color="action" /></Button>
+            </StyledButtonGroup>
+        </StyledBox>
+        <Box sx={{ width: "40%" }}>
+            <Button size="small" fullWidth sx={{ backgroundColor: "#f9fafb", color: "grey", border: "1px solid #ccc" }}>Edit</Button>
+        </Box>
+    </CardActions>
+}
 const ProductListPage = ({ productsData }) => {
-
+    console.log("productsData: ", productsData);
     return (
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 15, md: 25 }}
         >
