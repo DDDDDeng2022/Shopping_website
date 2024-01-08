@@ -1,4 +1,5 @@
 import '../App.css'; // 引入 CSS 模块
+import Signin from '../components/user/Signin';
 
 /**
  * todo:
@@ -17,7 +18,8 @@ function Content() {
 
     return (
         <div className='content' >
-            todo
+            {/* todo */}
+            <Signin />
         </div>
     )
 }
