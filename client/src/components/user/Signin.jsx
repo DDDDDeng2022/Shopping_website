@@ -17,11 +17,24 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Grid from "@mui/material/Grid";
 
 export const EmailBar = (props) => {
-    const {} = props;
+    // eslint-disable-next-line react/prop-types
+    const { validEmail, validateEmail } = props;
     return (
-        <FormControl sx={{ m: 1, width: "80%" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
-            <OutlinedInput />
+        <FormControl
+            sx={{ m: 1, width: "100%" }}
+            variant="outlined"
+            color="secondary"
+        >
+            {/* <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel> */}
+            <OutlinedInput
+                id="outlined-adornment-email"
+                onChange={validateEmail}
+                placeholder="you@email.com"
+                type="text"
+                // label="Email"
+                error={!validEmail}
+                helperText="Invalid Email"
+            />
         </FormControl>
     );
 };
@@ -31,7 +44,11 @@ export const PasswordBar = (props) => {
     const { showPassword, handleClickShowPassword, handleMouseDownPassword } =
         props;
     return (
-        <FormControl sx={{ m: 1, width: "80%" }} variant="outlined">
+        <FormControl
+            sx={{ m: 1, width: "100%" }}
+            variant="outlined"
+            color="secondary"
+        >
             <InputLabel htmlFor="outlined-adornment-password">
                 Password
             </InputLabel>
@@ -58,14 +75,14 @@ export const PasswordBar = (props) => {
 
 export default function App() {
     const [showPassword, setShowPassword] = useState(false);
+    const [validEmail, setValidEmail] = useState(false);
     const box_theme = createTheme({
         palette: {
             primary: {
                 main: "#FFFFFF",
-                
             },
-            button: {
-                main: "#5048E5"
+            secondary: {
+                main: "#5048E5",
             },
         },
     });
@@ -78,9 +95,13 @@ export default function App() {
         event.preventDefault();
     };
 
+    const validateEmail = () => {
+        
+    };
+
     return (
         <div className="content">
-            {/* <ThemeProvider theme={box_theme}> */}
+            <ThemeProvider theme={box_theme}>
                 {/* Change to dialog, signin - signup  */}
                 <Box
                     sx={{
@@ -93,15 +114,11 @@ export default function App() {
                         height: "528px",
                         borderRadius: "10px",
                         boxShadow: 3,
-                        // bgcolor: "primary.main",
                         p: 2,
                         m: 1,
                         textAlign: "center",
                         fontSize: "1rem",
-                        fontWeight: "700",
-                        // position: "relative",
                         margin: "auto",
-                        // flexGrow: 1,
                     }}
                 >
                     <IconButton
@@ -118,23 +135,49 @@ export default function App() {
                         <CloseIcon fontSize="40px" />
                     </IconButton>
 
-                    <Grid container className="loginContent">
-                        <Grid item xs={12} className="loginHeader">
-                            <Typography variant="h4" noWrap component="div">
+                    <Grid
+                        container
+                        spacing={2}
+                        justifyContent="space-evenly"
+                        justifyItems="center"
+                        alignItems="stretch"
+                        flexDirection="row"
+                        className="loginContent"
+                    >
+                        <Grid item xs={10}>
+                            <Typography
+                                sx={{
+                                    fontSize: {
+                                        xs: "24px",
+                                        sm: "34px",
+                                    },
+                                    fontWeight: "700",
+                                    marginBottom: {
+                                        sm: "20px",
+                                        md: "30px",
+                                    },
+                                }}
+                                noWrap
+                                component="div"
+                            >
                                 Sign in to your account
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} className="email">
-                            <Grid item xs={2}>
-                                Email
+                        <Grid container xs={10} className="email">
+                            <Grid item xs="auto">
+                                <Typography fontSize="16px" fontWeight="400">
+                                    Email
+                                </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <EmailBar />
+                                <EmailBar validEmail={validEmail} validateEmail={validateEmail} />
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} className="password">
-                            <Grid item xs={2}>
-                                Password
+                        <Grid container xs={10} className="password">
+                            <Grid item xs="auto">
+                                <Typography fontSize="16px" fontWeight="400">
+                                    Password
+                                </Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <PasswordBar
@@ -148,19 +191,48 @@ export default function App() {
                                 />
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} className="signIn">
-                            <Button variant="contained">Sign In</Button>
+                        <Grid
+                            item
+                            xs={10}
+                            className="signIn"
+                            sx={{ marginBottom: "5px" }}
+                        >
+                            <Button
+                                fullWidth
+                                color="secondary"
+                                variant="contained"
+                                onClick={handleSignIn}
+                            >
+                                Sign In
+                            </Button>
                         </Grid>
-                        <Grid item xs={12} className="loginOthers">
-                            {/* material ui Grid */}
-                            <div className="noAccount">
-                                <span>{"Don't have an account? "}</span>
-                                <Link href="">Sign Up</Link>
-                            </div>
+                        <Grid
+                            xs={9}
+                            container
+                            justifyContent="space-between"
+                            alignItems="center"
+                            flexDirection={{ xs: "column", sm: "row" }}
+                            sx={{ fontSize: "14px" }}
+                        >
+                            <Grid>
+                                <Typography variant="inherit" noWrap>
+                                    Don&#39;t have an account?{" "}
+                                    <Link color="#5048E5" href="">
+                                        Sign Up
+                                    </Link>
+                                </Typography>
+                            </Grid>
+                            <Grid>
+                                <Grid>
+                                    <Link color="#5048E5" href="">
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Box>
-            {/* </ThemeProvider> */}
+            </ThemeProvider>
         </div>
     );
 }
