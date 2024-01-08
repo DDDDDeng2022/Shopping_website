@@ -13,26 +13,34 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 
 function App() {
-    const darkTheme = createTheme({
-        palette: {
-            mode: "dark",
-            primary: {
-                main: "#1976d2",
-            },
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+      primary: {
+        main: "#1976d2",
+      },
+    }, components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
         },
-    });
+      },
+    },
+  });
 
-    const [loginState, setLoginState] = useState(false);
+  const [loginState, setLoginState] = useState(false);
 
-    return (
-        <ThemeProvider theme={darkTheme}>
-            <div className="container">
-                <Header onUpdateLogin={setLoginState} loginState={loginState} />
-                <Content />
-                <Footer />
-            </div>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <div className="container">
+        <Header onUpdateLogin={setLoginState} loginState={loginState} />
+        <Content />
+        <Footer />
+      </div>
+    </ThemeProvider>
+  )
 }
 
 export default App;
