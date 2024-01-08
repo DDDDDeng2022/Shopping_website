@@ -8,6 +8,7 @@ import {
     IconButton,
     Link,
     InputLabel,
+    Typography,
 } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -17,7 +18,12 @@ import Grid from "@mui/material/Grid";
 
 export const EmailBar = (props) => {
     const {} = props;
-    return <FormControl></FormControl>;
+    return (
+        <FormControl sx={{ m: 1, width: "80%" }} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
+            <OutlinedInput />
+        </FormControl>
+    );
 };
 
 export const PasswordBar = (props) => {
@@ -25,7 +31,7 @@ export const PasswordBar = (props) => {
     const { showPassword, handleClickShowPassword, handleMouseDownPassword } =
         props;
     return (
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <FormControl sx={{ m: 1, width: "80%" }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
                 Password
             </InputLabel>
@@ -56,8 +62,11 @@ export default function App() {
         palette: {
             primary: {
                 main: "#FFFFFF",
+                
             },
-            shadow: {},
+            button: {
+                main: "#5048E5"
+            },
         },
     });
 
@@ -71,7 +80,7 @@ export default function App() {
 
     return (
         <div className="content">
-            <ThemeProvider theme={box_theme}>
+            {/* <ThemeProvider theme={box_theme}> */}
                 {/* Change to dialog, signin - signup  */}
                 <Box
                     sx={{
@@ -84,13 +93,13 @@ export default function App() {
                         height: "528px",
                         borderRadius: "10px",
                         boxShadow: 3,
-                        bgcolor: "primary.main",
+                        // bgcolor: "primary.main",
                         p: 2,
                         m: 1,
                         textAlign: "center",
                         fontSize: "1rem",
                         fontWeight: "700",
-                        position: "relative",
+                        // position: "relative",
                         margin: "auto",
                         // flexGrow: 1,
                     }}
@@ -111,14 +120,16 @@ export default function App() {
 
                     <Grid container className="loginContent">
                         <Grid item xs={12} className="loginHeader">
-                            Sign in to your account
+                            <Typography variant="h4" noWrap component="div">
+                                Sign in to your account
+                            </Typography>
                         </Grid>
                         <Grid item xs={12} className="email">
                             <Grid item xs={2}>
                                 Email
                             </Grid>
                             <Grid item xs={12}>
-                                <input className="emailBox" />
+                                <EmailBar />
                             </Grid>
                         </Grid>
                         <Grid item xs={12} className="password">
@@ -149,7 +160,7 @@ export default function App() {
                         </Grid>
                     </Grid>
                 </Box>
-            </ThemeProvider>
+            {/* </ThemeProvider> */}
         </div>
     );
 }
