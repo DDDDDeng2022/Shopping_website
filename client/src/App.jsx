@@ -17,6 +17,14 @@ function App() {
       primary: {
         main: "#1976d2",
       },
+    }, components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
+        },
+      },
     },
   });
   return (
