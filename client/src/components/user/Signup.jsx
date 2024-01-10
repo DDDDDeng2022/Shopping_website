@@ -7,8 +7,8 @@ import {
     FormControl,
     IconButton,
     Link,
-    InputLabel,
     Typography,
+    FormHelperText,
 } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -16,43 +16,61 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Grid from "@mui/material/Grid";
 
+const EMAIL_REGEX =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// copied from stackoverflow
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$/;
+// This regex means at least 1 lowercase, at least 1 uppercase, at least 1 digits(number), and no space at least 8 characters
+
 export const EmailBar = (props) => {
     // eslint-disable-next-line react/prop-types
-    const { validateEmail } = props;
+    const { validEmail, validateEmail } = props;
     return (
         <FormControl
-            sx={{ m: 1, width: "100%" }}
+            sx={{ marginTop: 1, width: "100%" }}
             variant="outlined"
             color="secondary"
         >
-            <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
             <OutlinedInput
                 id="outlined-adornment-email"
-                onChange={validateEmail}
+                onChange={(event) => validateEmail(event)}
                 placeholder="you@email.com"
-                type="text"
-                label="Email"
+                type="email"
+                error={!validEmail}
             />
+            {!validEmail && (
+                <FormHelperText
+                    error
+                    sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        marginRight: 0,
+                    }}
+                >
+                    Invalid Email input!
+                </FormHelperText>
+            )}
         </FormControl>
     );
 };
 
 export const PasswordBar = (props) => {
     // eslint-disable-next-line react/prop-types
-    const { showPassword, handleClickShowPassword, handleMouseDownPassword } =
-        props;
+    const { showPassword, handleClickShowPassword, handleMouseDownPassword, validPassword, validatePassword } = props;
     return (
         <FormControl
-            sx={{ m: 1, width: "100%" }}
+            sx={{ marginTop: 1, width: "100%" }}
             variant="outlined"
             color="secondary"
         >
-            <InputLabel htmlFor="outlined-adornment-password">
-                Password
-            </InputLabel>
             <OutlinedInput
                 id="outlined-adornment-password"
+                placeholder="Password"
                 type={showPassword ? "text" : "password"}
+                onChange={(event) => {
+                    validatePassword(event);
+                }}
+                error={!validPassword}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
@@ -65,18 +83,33 @@ export const PasswordBar = (props) => {
                         </IconButton>
                     </InputAdornment>
                 }
-                label="Password"
             />
+            {!validPassword && (
+                <FormHelperText
+                    error
+                    sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        marginRight: 0,
+                    }}
+                >
+                    Invalid password input!
+                </FormHelperText>
+            )}
         </FormControl>
     );
 };
 
 export default function App() {
     const [showPassword, setShowPassword] = useState(false);
+    const [validEmail, setValidEmail] = useState(true);
+    const [validPassword, setValidPassword] = useState(true);
+
     const box_theme = createTheme({
         palette: {
             primary: {
                 main: "#FFFFFF",
+                secondary: "#6B7280",
             },
             secondary: {
                 main: "#5048E5",
@@ -92,19 +125,33 @@ export default function App() {
         event.preventDefault();
     };
 
-    const validateEmail = () => {};
+    const validateEmail = (event) => {
+        const curr_email = event.target.value;
+        if (curr_email.match(EMAIL_REGEX)) {
+            setValidEmail(true);
+        } else {
+            setValidEmail(false);
+        }
+    };
+
+    const validatePassword = (event) => {
+        const curr_password = event.target.value;
+        if (curr_password.match(PASSWORD_REGEX)) {
+            setValidPassword(true);
+        } else {
+            setValidPassword(false);
+        }
+    };
 
     return (
         <div className="content">
             <ThemeProvider theme={box_theme}>
-                {/* Change to dialog, signin - signup  */}
                 <Box
                     sx={{
                         boxSizing: "border-box",
                         width: {
                             sm: "100%",
-                            md: "50%",
-                            lg: "600px",
+                            md: "600px",
                         },
                         height: "528px",
                         borderRadius: "10px",
@@ -114,17 +161,17 @@ export default function App() {
                         textAlign: "center",
                         fontSize: "1rem",
                         margin: "auto",
+                        position: "relative",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                     }}
                 >
                     <IconButton
-                        edge="end"
                         sx={{
-                            // flexGrow: 1,
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            // flexDirection: "column-reverse",
-                            float: "right",
+                            position: "absolute",
+                            top: 10,
+                            right: 10
                         }}
                     >
                         <CloseIcon fontSize="40px" />
@@ -132,9 +179,8 @@ export default function App() {
 
                     <Grid
                         container
-                        spacing={2}
+                        direction="column"
                         justifyContent="space-evenly"
-                        justifyItems="center"
                         alignItems="stretch"
                         flexDirection="row"
                         className="loginContent"
@@ -152,7 +198,7 @@ export default function App() {
                                         md: "30px",
                                     },
                                 }}
-                                noWrap
+                                // noWrap
                                 component="div"
                             >
                                 Sign up an account
@@ -160,17 +206,37 @@ export default function App() {
                         </Grid>
                         <Grid container xs={10} className="email">
                             <Grid item xs="auto">
-                                <Typography fontSize="16px" fontWeight="400">
+                                <Typography
+                                    sx={{
+                                        fontSize: "16px",
+                                        fontWeight: "400",
+                                        color: "primary.secondary",
+                                    }}
+                                >
                                     Email
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <EmailBar validateEmail={validateEmail} />
+                                <EmailBar
+                                    validEmail={validEmail}
+                                    validateEmail={validateEmail}
+                                />
                             </Grid>
                         </Grid>
-                        <Grid container xs={10} className="password">
+                        <Grid
+                            container
+                            xs={10}
+                            className="password"
+                            sx={{ marginTop: 2 }}
+                        >
                             <Grid item xs="auto">
-                                <Typography fontSize="16px" fontWeight="400">
+                                <Typography
+                                    sx={{
+                                        fontSize: "16px",
+                                        fontWeight: "400",
+                                        color: "primary.secondary",
+                                    }}
+                                >
                                     Password
                                 </Typography>
                             </Grid>
@@ -183,6 +249,8 @@ export default function App() {
                                         handleMouseDownPassword
                                     }
                                     showPassword={showPassword}
+                                    validPassword={validPassword}
+                                    validatePassword={validatePassword}
                                 />
                             </Grid>
                         </Grid>
@@ -190,7 +258,7 @@ export default function App() {
                             item
                             xs={10}
                             className="signIn"
-                            sx={{ marginBottom: "5px" }}
+                            sx={{ marginTop: 2, marginBottom: 1 }}
                         >
                             <Button
                                 fullWidth
@@ -198,11 +266,11 @@ export default function App() {
                                 variant="contained"
                                 onClick={handleSignIn}
                             >
-                                Sign In
+                                Create account
                             </Button>
                         </Grid>
                         <Grid
-                            xs={9}
+                            xs={10}
                             container
                             justifyContent="space-between"
                             alignItems="center"
@@ -210,19 +278,24 @@ export default function App() {
                             sx={{ fontSize: "14px" }}
                         >
                             <Grid>
-                                <Typography variant="inherit" noWrap>
-                                    Don&#39;t have an account?{" "}
-                                    <Link color="#5048E5" href="">
-                                        Sign Up
+                                <Typography
+                                    variant="inherit"
+                                    noWrap
+                                    sx={{
+                                        fontSize: "14px",
+                                        fontWeight: "400",
+                                        color: "primary.secondary",
+                                    }}
+                                >
+                                    Already have an account?{" "}
+                                    <Link
+                                        color="#5048E5"
+                                        href=""
+                                        sx={{ fontWeight: "500" }}
+                                    >
+                                        Sign in
                                     </Link>
                                 </Typography>
-                            </Grid>
-                            <Grid>
-                                <Grid>
-                                    <Link color="#5048E5" href="">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
