@@ -1,3 +1,4 @@
+import * as React from "react"
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,6 +11,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
+import Cart from "./cart/Cart";
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
@@ -37,6 +39,11 @@ export const SearchBar = (props) => {
     </FormControl>)
 }
 export default function Header() {
+    const [openCartDialog,setOpenCartDialog]=React.useState(false);
+    const handleOpenCartDialog=()=>{
+        setOpenCartDialog(!openCartDialog);
+        console.log("open dialog");
+    }
     return (
         <AppBar position="static">
             <Toolbar>
@@ -84,7 +91,7 @@ export default function Header() {
                             sign out
                         </Typography>
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={handleOpenCartDialog}>
                         <Badge badgeContent={4} color="error">
                             <ShoppingCartOutlinedIcon />
                         </Badge>
@@ -105,6 +112,7 @@ export default function Header() {
             <Toolbar sx={{ display: { xs: "block", sm: "none" } }}>
                 <SearchBar isSearchWrap={true} />
             </Toolbar>
+            <Cart openCartDialog={openCartDialog} handleOpenCartDialog={handleOpenCartDialog}/>
         </AppBar>
     );
 }
