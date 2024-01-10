@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import Role from './role';
 import ShippingAddress from './shippingAddress';
 import Order from './order';
-import Cart from './cart';
+import Item from './item';
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -48,10 +48,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Order"
     }],
-    cart: {
+    cart: [{
         type: mongoose.Types.ObjectId,
-        ref: "Cart"
-    }
+        ref: "Item"
+    }]
 })
 
 const User = mongoose.model("User", userSchema);
