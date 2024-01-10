@@ -96,7 +96,7 @@ export default function App() {
                                     component="div"
                                 >
                                     We have sent the update password link to
-                                    your emial, please check that !
+                                    your email, please check that !
                                 </Typography>
                             </Grid>
                         </Grid>
