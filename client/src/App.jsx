@@ -1,7 +1,7 @@
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Content from './components/Content'
-import './App.css';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Content from "./components/Content";
+import "./App.css";
 
 /**
  * todo:
@@ -10,6 +10,8 @@ import './App.css';
  */
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useState } from "react";
+
 function App() {
   const darkTheme = createTheme({
     palette: {
@@ -27,10 +29,13 @@ function App() {
       },
     },
   });
+
+  const [loginState, setLoginState] = useState(false);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
-        <Header />
+        <Header onUpdateLogin={setLoginState} loginState={loginState} />
         <Content />
         <Footer />
       </div>
@@ -38,4 +43,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

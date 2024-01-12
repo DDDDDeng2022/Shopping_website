@@ -4,12 +4,14 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
+import PropTypes from "prop-types";
+import { useEffect } from "react";
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
@@ -19,24 +21,53 @@ export const SearchBar = (props) => {
     // eslint-disable-next-line react/prop-types
     const { isSearchWrap } = props;
     console.log("isSearch: ", isSearchWrap);
-    return (<FormControl sx={{ flexGrow: 1, display: { xs: isSearchWrap ? "block" : "none", sm: isSearchWrap ? "none" : "block" } }}>
-        <OutlinedInput
-            sx={{ backgroundColor: "white", width: "100%", color: "grey" }}
-            id="search"
-            type={"text"}
-            size="small"
-            placeholder="Search"
-            endAdornment={
-                <InputAdornment position="end">
-                    <IconButton onClick={() => { console.log("todo") }} edge="end">
-                        <SearchOutlinedIcon sx={{ color: "grey" }} />
-                    </IconButton>
-                </InputAdornment>
+    return (
+        <FormControl
+            sx={{
+                flexGrow: 1,
+                display: {
+                    xs: isSearchWrap ? "block" : "none",
+                    sm: isSearchWrap ? "none" : "block",
+                },
+            }}
+        >
+            <OutlinedInput
+                sx={{ backgroundColor: "white", width: "100%", color: "grey" }}
+                id="search"
+                type={"text"}
+                size="small"
+                placeholder="Search"
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            onClick={() => {
+                                console.log("todo");
+                            }}
+                            edge="end"
+                        >
+                            <SearchOutlinedIcon sx={{ color: "grey" }} />
+                        </IconButton>
+                    </InputAdornment>
+                }
+            />
+        </FormControl>
+    );
+};
+
+export default function Header({ onUpdateLogin, loginState }) {
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            try {
+                const response = await fetch("/api/auth/checkLogin");
+                const data = await response.json();
+                onUpdateLogin(data.isLoggedIn);
+            } catch (err) {
+                console.error("Error checking login status", err);
             }
-        />
-    </FormControl>)
-}
-export default function Header() {
+        };
+        checkLoginStatus();
+    }, []);
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -50,15 +81,29 @@ export default function Header() {
                 </Typography>
                 <Typography
                     component="div"
-                    sx={{ display: { sm: "block", fontSize: "10px", paddingLeft: "2px", paddingTop: "20px" } }}
+                    sx={{
+                        display: {
+                            sm: "block",
+                            fontSize: "10px",
+                            paddingLeft: "2px",
+                            paddingTop: "20px",
+                        },
+                    }}
                 >
                     Chuwa
                 </Typography>
                 <SearchBar isSearchWrap={false} />
                 <Box
-                    sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
+                    sx={{
+                        flexGrow: 1,
+                        display: "flex",
+                        justifyContent: "flex-end",
+                    }}
                 >
-                    <IconButton aria-label="account of current user" color="inherit">
+                    <IconButton
+                        aria-label="account of current user"
+                        color="inherit"
+                    >
                         <PersonOutlineOutlinedIcon />
                         <Typography
                             variant="subtitle2"
@@ -81,7 +126,9 @@ export default function Header() {
 
                                 可以考虑增加isSignOutDialogOpen,isSignInDialogOpen状态，去进行切换
                                 */}
-                            sign out
+                            {/* sign out */}
+                            {console.log("Login State:", loginState)}
+                            {loginState ? "Sign in" : "Sign out"}
                         </Typography>
                     </IconButton>
                     <IconButton color="inherit">
@@ -109,3 +156,7 @@ export default function Header() {
     );
 }
 
+Header.propTypes = {
+    loginState: PropTypes.bool.isRequired,
+    onUpdateLogin: PropTypes.func.isRequired,
+};
