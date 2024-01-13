@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { FormControl, FormHelperText } from "@mui/material";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import { FormControl, TextField } from "@mui/material";
+import { useDispatch } from 'react-redux';
+import { setEmail } from "./EmailPswSlice";
 import './dialog.css';
 
 const EMAIL_REGEX =
@@ -9,29 +10,29 @@ const EMAIL_REGEX =
 const EmailBar = () => {
     // eslint-disable-next-line react/prop-types
     const [validEmail, setValidEmail] = useState(true);
+    const dispatch = useDispatch();
     const validateEmail = (event) => {
         const curr_email = event.target.value;
+        dispatch(setEmail(curr_email));
         if (curr_email.match(EMAIL_REGEX)) {
             setValidEmail(true);
         } else {
             setValidEmail(false);
         }
     };
+
     return (
         <div className="inputContainer">
             <div className="inputTitle">Email</div>
             <FormControl sx={{ marginTop: 1, width: "100%" }}>
-                <OutlinedInput
-                    onChange={(event) => validateEmail(event)}
+                <TextField
+                    onChange={validateEmail}
                     placeholder="you@email.com"
                     type="email"
                     error={!validEmail}
+                    helperText={!validEmail && "Invalid Email input!"}
+                    FormHelperTextProps={{ sx: { textAlign: 'right' } }}
                 />
-                {!validEmail &&
-                    <FormHelperText error className="errorReminder" >
-                        Invalid Email input!
-                    </FormHelperText>
-                }
             </FormControl>
         </div>
     );

@@ -10,12 +10,6 @@
     width: 85%
 }
 
-.errorRemainder {
-    display: flex;
-    justify-content: flex-end;
-    margin-Right: 0
-}
-
 .emailIcon {
     display: flex;
     flex-direction: column;

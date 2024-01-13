@@ -79,9 +79,7 @@ export function ParoductButton({ product }) {
 
     const handleEdit = (e) => {
         e.stopPropagation();
-        // navigate(`/edit/${product._id}`);
         navigate(`/productedit`, { state: { product: product } });
-
     };
     return <CardActions sx={{ display: 'flex', alignItems: 'center', padding: "0", flexWrap: 'wrap', maxWidth: "300px" }}>
         <StyledBox>

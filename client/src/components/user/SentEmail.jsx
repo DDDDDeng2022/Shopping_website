@@ -1,7 +1,7 @@
 import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import OuterBox from "./OuterBox";
 import './dialog.css'
-export default function App() {
+export default function SentEmailPage() {
     return (
         <OuterBox>
             <div className="emailIcon">

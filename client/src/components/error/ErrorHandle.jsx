@@ -2,7 +2,7 @@ import Box from "@mui/system/Box";
 import { Grid, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-export default function ErrorHandle() {
+export default function ErrorHandlePage() {
     const box_theme = createTheme({
         palette: {
             primary: {

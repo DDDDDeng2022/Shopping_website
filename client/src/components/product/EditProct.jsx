@@ -71,7 +71,7 @@ const theme = () => {
 }
 
 
-export function ParoductEdit() {
+export function ProductEdit() {
     const location = useLocation();
     const product = location.state?.product;
 
@@ -203,4 +203,4 @@ const InputContainer = ({ title, children }) => {
         {children}
     </div>
 }
-export default ParoductEdit
+export default ProductEdit

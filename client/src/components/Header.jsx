@@ -11,8 +11,9 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import PropTypes from "prop-types";
-import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
@@ -22,7 +23,6 @@ import { useEffect } from "react";
 export const SearchBar = (props) => {
     // eslint-disable-next-line react/prop-types
     const { isSearchWrap } = props;
-    console.log("isSearch: ", isSearchWrap);
     return (
         <FormControl
             sx={{
@@ -71,11 +71,14 @@ export const SearchBar = (props) => {
                 }
             />
         </FormControl>
-        // </ThemeProvider>
     );
 };
 
 export default function Header({ onUpdateLogin, loginState }) {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("/signin");
+    };
     useEffect(() => {
         const checkLoginStatus = async () => {
             try {
@@ -135,6 +138,7 @@ export default function Header({ onUpdateLogin, loginState }) {
                                 sm: "8px"
                             }
                         }}
+                        onClick={handleClick}
                     >
                         <PersonOutlineOutlinedIcon sx={{
                             fontSize: {
