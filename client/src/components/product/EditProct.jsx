@@ -3,6 +3,7 @@ import { InputBase, TextField, MenuItem, Input, FormHelperText, InputAdornment, 
 // import InputContainer from './InputContainer';
 import { useParams } from 'react-router-dom';
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
+import { useLocation } from 'react-router-dom';
 
 const Div = styled("div")(({ theme }) => ({
     [theme.breakpoints.down('xs')]: {
@@ -71,23 +72,9 @@ const theme = () => {
 
 
 export function ParoductEdit() {
-    let { id } = useParams();
-    const [checkStatus, setCheckStatus] = React.useState(false);
-    console.log("id: ", id);
-    const [product, setProduct] = React.useState(null);
-    React.useEffect(() => {
-        const fetchProductById = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/api/product/${id}`);
-                const data = await response.json();
-                setProduct(data);
-                console.log("data", data)
-            } catch (err) {
-                console.error('Error:', err);
-            }
-        };
-        fetchProductById();
-    }, [id]);
+    const location = useLocation();
+    const product = location.state?.product;
+
     return <div className='content' style={{ alignItems: 'center' }}>
         <Box sx={{
             fontFamily: "sans-serif",
@@ -118,6 +105,7 @@ export function ParoductEdit() {
                         fullWidth
                         hiddenLabel
                         sx={{ padding: 0 }}
+                        value={product ? product.name : ""}
                     />
                 </InputContainer>
                 <InputContainer title="Product Description">
@@ -126,8 +114,7 @@ export function ParoductEdit() {
                         hiddenLabel
                         multiline
                         rows={3}
-                        defaultValue="Default Value"
-
+                        value={product ? product.description : ""}
                     />
                 </InputContainer>
                 <Grid container spacing={1} columns={{ xs: 4, sm: 12 }} >
@@ -144,14 +131,14 @@ export function ParoductEdit() {
                     </Grid>
                     <Grid item xs={4} sm={6} >
                         <InputContainer title="Price">
-                            <TextField hiddenLabel />
+                            <TextField hiddenLabel value={product ? product.price : ""} />
                         </InputContainer>
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} columns={{ xs: 4, sm: 11 }} >
                     <Grid item xs={4} sm={4} >
                         <InputContainer title="In Stock Quanity">
-                            <TextField fullWidth hiddenLabel />
+                            <TextField fullWidth hiddenLabel value={product ? product.quantity : ""} />
                         </InputContainer>
                     </Grid>
                     <Grid item xs={4} sm={7} >
@@ -193,7 +180,17 @@ export function ParoductEdit() {
                 }}>
                     {/* <img src= alt="Input" style={{ maxWidth: '100%', maxHeight: '300px' }} /> */}
                 </Box>
-                <div><Button variant="contained">Add Product</Button></div>
+                <Box sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: {
+                        xs: "center",
+                        sm: "flex-start"
+                    }
+                }}>
+                    <Button variant="contained">
+                        {product ? "save" : "Add Product"}
+                    </Button></Box>
             </Div >
         </ThemeProvider>
     </div >
@@ -207,54 +204,3 @@ const InputContainer = ({ title, children }) => {
     </div>
 }
 export default ParoductEdit
-
-
-{/* 
-                <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                    <div style={{ fontFamily: "Helvetica, Arial, sans-serif", color: "#6B7280", fontSize: "14px" }}>Product name</div>
-                    <TextField fullWidth hiddenLabel sx={{ border: "grey" }} />
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                    <div style={{ fontFamily: "Helvetica, Arial, sans-serif", color: "#6B7280", fontSize: "14px" }}>Product Description</div>
-                    <TextField
-                        fullWidth
-                        hiddenLabel
-                        multiline
-                        rows={4}
-                        defaultValue="Default Value"
-                    />
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div style={{ fontFamily: "Helvetica, Arial, sans-serif", color: "#6B7280", fontSize: "14px" }}>Category</div>
-                        <TextField select defaultValue="category1">
-                            {categories.map((option, index) => (
-                                <MenuItem key={index} value={option}>
-                                    {option}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div style={{ fontFamily: "Helvetica, Arial, sans-serif", color: "#6B7280", fontSize: "14px" }}>Price</div>
-                        <TextField hiddenLabel />
-                    </div>
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div style={{ fontFamily: "Helvetica, Arial, sans-serif", color: "#6B7280", fontSize: "14px" }}>In Stock Quanity</div>
-                        <TextField fullWidth hiddenLabel />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div style={{ fontFamily: "Helvetica, Arial, sans-serif", color: "#6B7280", fontSize: "14px" }}>Add Image Link</div>
-                        <FormControl variant="outlined">
-                            <OutlinedInput
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <Button variant="contained">Upload</Button>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                    </div>
-                </div> */}

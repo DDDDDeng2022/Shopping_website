@@ -20,7 +20,8 @@ function Content() {
                 <Route path="/updatePassword" element={<UpdatePassword />} />
                 <Route path="/sentEmail" element={<SentEmail />} />
                 <Route path="*" element={<ErrorHandle />} />
-                <Route path="/edit/:id" element={<ParoductEdit />} />
+                <Route path="/productedit" element={<ParoductEdit />} />
+                <Route path="/productcreate/" element={<ParoductEdit />} />
             </Routes>
         </Router>
     )

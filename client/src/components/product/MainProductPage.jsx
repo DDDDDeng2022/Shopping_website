@@ -6,6 +6,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import "../../App.css"
+import { useNavigate } from 'react-router-dom';
+
 /**
  * todo:
  * 1、创建商品页面的的具体信息，
@@ -117,6 +119,10 @@ function MainProductPage() {
             return null;
         }
     };
+    const navigate = useNavigate();
+    const handleAddProduct = () => {
+        navigate(`/productcreate`);
+    };
     return (
         <div className='content'>
             {/* top */}
@@ -149,7 +155,7 @@ function MainProductPage() {
                                 </StyledSelect>
                             </StyledFormControl>
                         </ThemeProvider>
-                        <Button variant="contained">Add Product</Button>
+                        <Button variant="contained" onClick={handleAddProduct}>Add Product</Button>
                     </Grid>
                 </Grid>
             </div>
