@@ -1,4 +1,4 @@
-import User from '../db/models/user';
+import User from '../db/models/user.js';
 
 /*
     TODO: Add a JWT creator for auto-signIn
@@ -9,9 +9,9 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const result = await User.findOne({ email: email });
         if (!result) {
-            res.status(403).json({ message: 'Invalid email'});
+            res.status(403).json({ message: 'Invalid email' });
         } else if (result.password !== password) {
-            res.status(403).json({ message: 'Invalid password'});
+            res.status(403).json({ message: 'Invalid password' });
         }
     } catch (err) {
         res.status(500).json({ message: 'Server Error' });

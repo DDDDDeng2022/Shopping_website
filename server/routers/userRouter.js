@@ -1,12 +1,12 @@
 import express from "express";
-import auth from "../middleware/auth";
+// import auth from '../middleware/auth.js';
 import {
     getUser,
     getCart,
     // createUser,
     updateUser,
     deleteUser,
-} from '../controllers/user';
+} from '../controllers/user.js';
 
 const router = express.Router();
 

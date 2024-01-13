@@ -54,7 +54,15 @@ function ProductDetailPage() {
     }, [id]);
     return (
         <div className='content'>
-            <Box sx={{ fontFamily: "sans-serif", fontWeight: "600", fontSize: "30px", marginBottom: "20px" }}>
+            <Box sx={{
+                fontFamily: "sans-serif",
+                fontWeight: "600",
+                fontSize: {
+                    xs: "25px",
+                    sm: "30px"
+                },
+                marginBottom: "20px"
+            }}>
                 Products Detail
             </Box>
             {

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import Role from './role';
-import ShippingAddress from './shippingAddress';
-import Order from './order';
-import Item from './item';
+import Role from './role.js';
+import ShippingAddress from './shippingAddress.js';
+import { Order } from './order.js';
+import Item from './item.js';
 
 const userSchema = new mongoose.Schema({
     name: {
