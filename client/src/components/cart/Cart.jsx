@@ -12,11 +12,18 @@ import Typography from '@mui/material/Typography';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
+    height: 'auto',//
    
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
+    margin: 0,//
   },
+  backgroundColor: 'white',
+  display:'flex',
+  alignItems:'flex-start',
+  justifyContent: 'flex-end',
+
   // display:'flex',
   // position:'absolute',
   // flexDirection:'row-reverse',
@@ -25,9 +32,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   // position: 'fixed',
   // top: '0px',
   // right: '0px',
-  width: '25%',
-  // height: '80%',
-  border:'2px red solid',
+  // width: '25%',
+  // // height: '80%',
+  // border:'2px red solid',
   // backdropFilter: 'white', // Apply backdrop filter to blur the background
   // padding:'0px'
 //   '& .DialogTitle-root':{

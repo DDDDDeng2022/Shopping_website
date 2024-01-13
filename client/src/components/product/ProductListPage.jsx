@@ -41,9 +41,7 @@ const StyledButton = styled(Button)({
 function ProductItem({ product }) {
     const navigate = useNavigate();
     const handleClick = () => {
-        console.log('card clicked');
         navigate(`/product/${product._id}`);
-
     };
     return (
         <Card sx={{ backgroundColor: "white", padding: "8px", border: "1px solid #ccc" }} onClick={handleClick}>
@@ -67,6 +65,7 @@ function ProductItem({ product }) {
 
 export function ParoductButton({ product }) {
     const [quantity, setQuantity] = React.useState(1);
+    const navigate = useNavigate();
     const handleDecrease = (e) => {
         //  todo 联合购物车使用
         e.stopPropagation();
@@ -77,6 +76,11 @@ export function ParoductButton({ product }) {
         e.stopPropagation();
         setQuantity(q => q + 1);
     }
+
+    const handleEdit = (e) => {
+        e.stopPropagation();
+        navigate(`/productedit`, { state: { product: product } });
+    };
     return <CardActions sx={{ display: 'flex', alignItems: 'center', padding: "0", flexWrap: 'wrap', maxWidth: "300px" }}>
         <StyledBox>
             <StyledButtonGroup disableElevation variant="contained">
@@ -86,7 +90,9 @@ export function ParoductButton({ product }) {
             </StyledButtonGroup>
         </StyledBox>
         <Box sx={{ width: "40%" }}>
-            <Button size="small" fullWidth sx={{ backgroundColor: "#f9fafb", color: "grey", border: "1px solid #ccc" }}>Edit</Button>
+            <Button size="small" fullWidth
+                onClick={handleEdit}
+                sx={{ backgroundColor: "#f9fafb", color: "grey", border: "1px solid #ccc" }}>Edit</Button>
         </Box>
     </CardActions>
 }
@@ -113,7 +119,6 @@ const ProductListPage = ({ productsData }) => {
                         </Box>
                     </Grid>
                 ))
-
             }
         </Grid>
     )

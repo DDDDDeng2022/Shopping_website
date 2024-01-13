@@ -46,7 +46,10 @@ export default function Footer() {
                         sx={{
                             mr: 2,
                             fontFamily: "monospace",
-                            fontSize: "0.5rem",
+                            fontSize: {
+                                xs: "0.4rem",
+                                sm: "0.5rem",
+                            }
                         }}
                     >
                         ©2022 All Rights Reserved.
@@ -56,23 +59,57 @@ export default function Footer() {
                 <Grid container columnSpacing={1} sx={{ order: { xs: 1, sm: 2 } }}>
                     <Grid>
                         <Link href=" https://www.youtube.com/" color="inherit" underline="none" target="_blank">
-                            <IconButton color="inherit">
-                                <YouTubeIcon fontSize="small" />
+                            <IconButton color="inherit"
+                                sx={{
+                                    padding: {
+                                        xs: "5px",
+                                        sm: "8px"
+                                    }
+                                }}>
+                                <YouTubeIcon sx={{
+                                    fontSize: {
+                                        xs: "20px",
+                                        sm: "25px"
+                                    }
+                                }}
+                                />
                             </IconButton>
                         </Link>
                     </Grid>
 
                     <Grid>
                         <Link href=" https://www.twitter.com/" color="inherit" underline="none" target="_blank">
-                            <IconButton color="inherit">
-                                <TwitterIcon fontSize="small" />
+                            <IconButton color="inherit"
+                                sx={{
+                                    padding: {
+                                        xs: "5px",
+                                        sm: "8px"
+                                    }
+                                }}>
+                                <TwitterIcon sx={{
+                                    fontSize: {
+                                        xs: "20px",
+                                        sm: "25px"
+                                    }
+                                }} />
                             </IconButton>
                         </Link>
                     </Grid>
                     <Grid>
                         <Link href=" https://www.facebook.com/" color="inherit" underline="none" target="_blank">
-                            <IconButton color="inherit">
-                                <FacebookIcon fontSize="small" />
+                            <IconButton color="inherit"
+                                sx={{
+                                    padding: {
+                                        xs: "5px",
+                                        sm: "8px"
+                                    }
+                                }}>
+                                <FacebookIcon sx={{
+                                    fontSize: {
+                                        xs: "20px",
+                                        sm: "25px"
+                                    }
+                                }} />
                             </IconButton>
                         </Link>
                     </Grid>
@@ -83,7 +120,10 @@ export default function Footer() {
                         <Grid key={page}>
                             <Button
                                 sx={{
-                                    fontSize: "0.5rem",
+                                    fontSize: {
+                                        xs: "0.4rem",
+                                        sm: "0.5rem",
+                                    },
                                     color: "white",
                                     whiteSpace: "nowrap",
                                     textTransform: "none",

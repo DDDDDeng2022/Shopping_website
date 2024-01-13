@@ -5,18 +5,23 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Cart from "./cart/Cart";
+import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
  * 2、关于searchBar可以考虑能否使用Grid去进行调整
  */
+
 export const SearchBar = (props) => {
     // eslint-disable-next-line react/prop-types
     const { isSearchWrap } = props;
@@ -39,14 +44,19 @@ export const SearchBar = (props) => {
     </FormControl>)
 }
 export default function Header() {
-    const [openCartDialog,setOpenCartDialog]=React.useState(false);
-    const handleOpenCartDialog=()=>{
-        setOpenCartDialog(!openCartDialog);
-        console.log("open dialog");
-    }
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("/signin");
+    };
+    
     return (
         <AppBar position="static">
-            <Toolbar>
+            <Toolbar sx={{
+                minHeight: {
+                    xs: "30px",
+                    sm: "60px"
+                }
+            }} >
                 <Typography
                     variant="h5"
                     noWrap
@@ -57,16 +67,43 @@ export default function Header() {
                 </Typography>
                 <Typography
                     component="div"
-                    sx={{ display: { sm: "block", fontSize: "10px", paddingLeft: "2px", paddingTop: "20px" } }}
+                    sx={{
+                        display: {
+                            sm: "block",
+                            fontSize: "10px",
+                            paddingLeft: "2px",
+                            paddingTop: "20px",
+                        },
+                    }}
                 >
                     Chuwa
                 </Typography>
                 <SearchBar isSearchWrap={false} />
                 <Box
-                    sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
+                    sx={{
+                        flexGrow: 1,
+                        display: "flex",
+                        justifyContent: "flex-end",
+                    }}
                 >
-                    <IconButton aria-label="account of current user" color="inherit">
-                        <PersonOutlineOutlinedIcon />
+                    <IconButton
+                        aria-label="account of current user"
+                        color="inherit"
+                        sx={{
+                            padding: {
+                                xs: "6px",
+                                sm: "8px"
+                            }
+                        }}
+                        onClick={handleClick}
+                    >
+                        <PersonOutlineOutlinedIcon sx={{
+                            fontSize: {
+                                xs: "24px",
+                                sm: "30px"
+                            },
+
+                        }} />
                         <Typography
                             variant="subtitle2"
                             component="div"
@@ -88,17 +125,30 @@ export default function Header() {
 
                                 可以考虑增加isSignOutDialogOpen,isSignInDialogOpen状态，去进行切换
                                 */}
-                            sign out
+                            {/* sign out */}
+                            {console.log("Login State:", loginState)}
+                            {loginState ? "Sign in" : "Sign out"}
                         </Typography>
                     </IconButton>
                     <IconButton color="inherit" onClick={handleOpenCartDialog}>
                         <Badge badgeContent={4} color="error">
-                            <ShoppingCartOutlinedIcon />
+                            <ShoppingCartOutlinedIcon sx={{
+                                fontSize: {
+                                    xs: "20px",
+                                    sm: "30px"
+                                }
+                            }} />
                         </Badge>
                         <Typography
                             variant="subtitle2"
                             component="div"
-                            sx={{ display: { sm: "block" } }}
+                            sx={{
+                                display: { sm: "block" },
+                                fontSize: {
+                                    xs: "14px",
+                                    sm: "18px"
+                                }
+                            }}
                         >
                             {/* todo: 
                              可以考虑localstorage，或者直接从数据库中获取，
@@ -109,7 +159,12 @@ export default function Header() {
                     </IconButton>
                 </Box>
             </Toolbar>
-            <Toolbar sx={{ display: { xs: "block", sm: "none" } }}>
+            <Toolbar sx={{
+                display: { xs: "block", sm: "none" }, minHeight: {
+                    xs: "40px",
+                    xm: "56px"
+                }
+            }}>
                 <SearchBar isSearchWrap={true} />
             </Toolbar>
             <Cart openCartDialog={openCartDialog} handleOpenCartDialog={handleOpenCartDialog}/>
@@ -117,3 +172,7 @@ export default function Header() {
     );
 }
 
+Header.propTypes = {
+    loginState: PropTypes.bool.isRequired,
+    onUpdateLogin: PropTypes.func.isRequired,
+};
