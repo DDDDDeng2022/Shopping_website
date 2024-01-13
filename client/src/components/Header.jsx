@@ -1,4 +1,3 @@
-import * as React from "react"
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,10 +10,11 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Cart from "./cart/Cart";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+
+import Cart from "./cart/Cart";
 
 /**
  * todo:
@@ -25,30 +25,75 @@ import { useNavigate } from 'react-router-dom';
 export const SearchBar = (props) => {
     // eslint-disable-next-line react/prop-types
     const { isSearchWrap } = props;
-    console.log("isSearch: ", isSearchWrap);
-    return (<FormControl sx={{ flexGrow: 1, display: { xs: isSearchWrap ? "block" : "none", sm: isSearchWrap ? "none" : "block" } }}>
-        <OutlinedInput
-            sx={{ backgroundColor: "white", width: "100%", color: "grey" }}
-            id="search"
-            type={"text"}
-            size="small"
-            placeholder="Search"
-            endAdornment={
-                <InputAdornment position="end">
-                    <IconButton onClick={() => { console.log("todo") }} edge="end">
-                        <SearchOutlinedIcon sx={{ color: "grey" }} />
-                    </IconButton>
-                </InputAdornment>
-            }
-        />
-    </FormControl>)
-}
-export default function Header() {
+    return (
+        <FormControl
+            sx={{
+                flexGrow: 1,
+                display: {
+                    xs: isSearchWrap ? "block" : "none",
+                    sm: isSearchWrap ? "none" : "block",
+                },
+            }}
+        >
+            <OutlinedInput
+                sx={{
+                    backgroundColor: "white", width: "100%", color: "grey",
+                    '& .MuiInputBase-input': {
+                        padding: {
+                            xs: "5px",
+                            sm: "10px"
+                        },
+                        fontSize: {
+                            xs: "15px",
+                            sm: "20px"
+                        }
+                    }
+                }}
+                id="search"
+                type={"text"}
+                size="small"
+                placeholder="Search"
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            onClick={() => {
+                                console.log("todo");
+                            }}
+                            edge="end"
+                        >
+                            <SearchOutlinedIcon sx={{
+                                color: "grey",
+                                fontSize: {
+                                    xs: "20px",
+                                    sm: "30px"
+                                }
+                            }} />
+                        </IconButton>
+                    </InputAdornment>
+                }
+            />
+        </FormControl>
+    );
+};
+
+export default function Header({ onUpdateLogin, loginState }) {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate("/signin");
     };
-    
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            try {
+                const response = await fetch("/api/auth/checkLogin");
+                const data = await response.json();
+                onUpdateLogin(data.isLoggedIn);
+            } catch (err) {
+                console.error("Error checking login status", err);
+            }
+        };
+        checkLoginStatus();
+    }, []);
+
     return (
         <AppBar position="static">
             <Toolbar sx={{
