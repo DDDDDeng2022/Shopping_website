@@ -119,7 +119,6 @@ const ProductListPage = ({ productsData }) => {
                         </Box>
                     </Grid>
                 ))
-
             }
         </Grid>
     )
