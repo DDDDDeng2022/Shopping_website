@@ -11,7 +11,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import Cart from "./cart/Cart";
@@ -81,6 +81,13 @@ export default function Header({ onUpdateLogin, loginState }) {
     const handleClick = () => {
         navigate("/signin");
     };
+
+    const [openCartDialog,setOpenCartDialog]=useState(false);
+    const handleOpenCartDialog=()=>{
+        setOpenCartDialog(!openCartDialog);
+        console.log("open dialog");
+    }
+
     useEffect(() => {
         const checkLoginStatus = async () => {
             try {
@@ -176,6 +183,7 @@ export default function Header({ onUpdateLogin, loginState }) {
                         </Typography>
                     </IconButton>
                     <IconButton color="inherit" onClick={handleOpenCartDialog}>
+                    {/* <IconButton color="inherit" > */}
                         <Badge badgeContent={4} color="error">
                             <ShoppingCartOutlinedIcon sx={{
                                 fontSize: {
