@@ -4,7 +4,7 @@ import { InputBase, TextField, MenuItem, Input, FormHelperText, InputAdornment, 
 import { useParams } from 'react-router-dom';
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { useLocation } from 'react-router-dom';
-
+import { updateProduct, addProduct } from './productApi';
 const Div = styled("div")(({ theme }) => ({
     [theme.breakpoints.down('xs')]: {
         width: "100%",
@@ -74,7 +74,49 @@ const theme = () => {
 export function ProductEdit() {
     const location = useLocation();
     const product = location.state?.product;
+    const type = product ? "save" : "addProduct";
+    const [productName, setProductName] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [category, setCategory] = React.useState("");
+    const [price, setPrice] = React.useState();
+    const [quantity, setQuantity] = React.useState();
+    const [photoLink, setPhotoLink] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
+    React.useEffect(() => {
+        setProductName(product ? product.name : "");
+        setDescription(product ? product.description : "");
+        setPrice(product ? product.price : "");
+        setQuantity(product ? product.quantity : "");
+        setPhotoLink(product ? product.link : "");
+    }, [])
 
+    const handleSubmit = async () => {
+        const newProductData = {
+            name: productName,
+            description: description,
+            price: Number(price),
+            quantity: Number(quantity),
+            photo_link: photoLink
+        };
+        console.log("newProductData: ", newProductData);
+        try {
+            setLoading(true);
+            if (type === "save") {
+                const updatedProduct = await updateProduct(product._id, newProductData);
+                console.log("update successfully: ", updatedProduct);
+            }
+            else {
+                const updatedProduct = await addProduct(newProductData);
+                console.log("update successfully: ", updatedProduct);
+            }
+
+
+        } catch (err) {
+            console.error('Update failed:', err);
+        } finally {
+            setLoading(false);
+        }
+    }
     return <div className='content' style={{ alignItems: 'center' }}>
         <Box sx={{
             fontFamily: "sans-serif",
@@ -96,7 +138,7 @@ export function ProductEdit() {
             }
         }}>
 
-            Create Product
+            {product ? "Edit Product" : "Create Product"}
         </Box>
         <ThemeProvider theme={theme}>
             <Div >
@@ -105,7 +147,9 @@ export function ProductEdit() {
                         fullWidth
                         hiddenLabel
                         sx={{ padding: 0 }}
-                        value={product ? product.name : ""}
+                        value={productName}
+                        onChange={(e) => setProductName(e.target.value)}
+
                     />
                 </InputContainer>
                 <InputContainer title="Product Description">
@@ -114,7 +158,8 @@ export function ProductEdit() {
                         hiddenLabel
                         multiline
                         rows={3}
-                        value={product ? product.description : ""}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                 </InputContainer>
                 <Grid container spacing={1} columns={{ xs: 4, sm: 12 }} >
@@ -131,24 +176,28 @@ export function ProductEdit() {
                     </Grid>
                     <Grid item xs={4} sm={6} >
                         <InputContainer title="Price">
-                            <TextField hiddenLabel value={product ? product.price : ""} />
+                            <TextField hiddenLabel value={price}
+                                onChange={(e) => setPrice(e.target.value)} />
                         </InputContainer>
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} columns={{ xs: 4, sm: 11 }} >
                     <Grid item xs={4} sm={4} >
                         <InputContainer title="In Stock Quanity">
-                            <TextField fullWidth hiddenLabel value={product ? product.quantity : ""} />
+                            <TextField fullWidth hiddenLabel
+                                value={quantity}
+                                onChange={(e) => setQuantity(e.target.value)} />
                         </InputContainer>
                     </Grid>
                     <Grid item xs={4} sm={7} >
                         <InputContainer title="Add Image Link">
                             <FormControl variant="outlined">
                                 <OutlinedInput
+                                    value={photoLink}
+                                    onChange={(e) => setPhotoLink(e.target.value)}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <Button variant="contained"
-
                                                 sx={{
                                                     minWidth: "fit-content",
                                                     padding: {
@@ -188,9 +237,10 @@ export function ProductEdit() {
                         sm: "flex-start"
                     }
                 }}>
-                    <Button variant="contained">
-                        {product ? "save" : "Add Product"}
-                    </Button></Box>
+                    <Button variant="contained" onClick={handleSubmit} disabled={loading}> {type}</Button>
+                </Box>
+
+
             </Div >
         </ThemeProvider>
     </div >

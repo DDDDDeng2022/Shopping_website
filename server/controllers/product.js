@@ -35,9 +35,10 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         req.body.updatedAt = new Date();
-        await Product.findByIdAndUpdate(req.params?.id, req.body, { new: true });
+        const product = await Product.findByIdAndUpdate(req.params?.id, req.body, { new: true });
         res.status(200).json(product);
     } catch (err) {
+        console.log("err: ", err);
         res.status(500).json({ message: 'Server Error' });
     }
 };
