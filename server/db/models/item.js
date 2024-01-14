@@ -9,7 +9,7 @@ import Product from './product.js';
  */
 
 const itemSchema = new mongoose.Schema({
-    product_id:{
+    product:{
         type: mongoose.Types.ObjectId,
         require: true,
         ref: "Product"
