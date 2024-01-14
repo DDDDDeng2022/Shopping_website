@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: "Product quantity is required "
     },
-    photo_link:
+    link:
     {
         type: String,
     },
