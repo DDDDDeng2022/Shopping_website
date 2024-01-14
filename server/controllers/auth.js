@@ -1,4 +1,5 @@
 import User from '../db/models/user.js';
+import Role from '../db/models/role.js'
 
 /*
     TODO: Add a JWT creator for auto-signIn
@@ -24,7 +25,8 @@ const signup = async (req, res) => {
     try {
         const create_user_data = req.body;
         create_user_data.name = create_user_data.email?.split('@')[0];
-        const user = new User(create_user_data);
+        const role = await Role.findOne({ name: create_user_data.role });
+        const user = new User({ ...create_user_data, role });
         if (!user.name || !user.email || !user.password) {
             res.status(400).json({ message: "Please provide required fields" });
         }
