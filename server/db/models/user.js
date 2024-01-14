@@ -3,6 +3,7 @@ import Role from './role.js';
 import ShippingAddress from './shippingAddress.js';
 import { Order } from './order.js';
 import Item from './item.js';
+import Cart from './cart.js';
 
 const userSchema = new mongoose.Schema({
     name: {
