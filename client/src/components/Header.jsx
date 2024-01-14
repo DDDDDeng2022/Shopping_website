@@ -11,10 +11,8 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-
-import Cart from "./cart/Cart";
 
 /**
  * todo:
@@ -81,13 +79,6 @@ export default function Header({ onUpdateLogin, loginState }) {
     const handleClick = () => {
         navigate("/signin");
     };
-
-    const [openCartDialog,setOpenCartDialog]=useState(false);
-    const handleOpenCartDialog=()=>{
-        setOpenCartDialog(!openCartDialog);
-        console.log("open dialog");
-    }
-
     useEffect(() => {
         const checkLoginStatus = async () => {
             try {
@@ -182,8 +173,7 @@ export default function Header({ onUpdateLogin, loginState }) {
                             {loginState ? "Sign in" : "Sign out"}
                         </Typography>
                     </IconButton>
-                    <IconButton color="inherit" onClick={handleOpenCartDialog}>
-                    {/* <IconButton color="inherit" > */}
+                    <IconButton color="inherit">
                         <Badge badgeContent={4} color="error">
                             <ShoppingCartOutlinedIcon sx={{
                                 fontSize: {
@@ -220,7 +210,6 @@ export default function Header({ onUpdateLogin, loginState }) {
             }}>
                 <SearchBar isSearchWrap={true} />
             </Toolbar>
-            <Cart openCartDialog={openCartDialog} handleOpenCartDialog={handleOpenCartDialog}/>
         </AppBar>
     );
 }
