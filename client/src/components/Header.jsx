@@ -11,9 +11,9 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import Cart from "./cart/CartDialog";
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
@@ -75,6 +75,8 @@ export const SearchBar = (props) => {
 };
 
 export default function Header({ onUpdateLogin, loginState }) {
+    const [openCartDialog, setOpenCartDialog] = useState(false);
+
     const navigate = useNavigate();
     const handleClick = () => {
         navigate("/signin");
@@ -91,9 +93,13 @@ export default function Header({ onUpdateLogin, loginState }) {
         };
         checkLoginStatus();
     }, []);
+    const handleOpenCartDialog = () => {
+        setOpenCartDialog(!openCartDialog);
+        console.log("open dialog");
+    }
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{ backgroundColor: "#101827" }}>
             <Toolbar sx={{
                 minHeight: {
                     xs: "30px",
@@ -173,7 +179,8 @@ export default function Header({ onUpdateLogin, loginState }) {
                             {loginState ? "Sign in" : "Sign out"}
                         </Typography>
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={handleOpenCartDialog}>
+
                         <Badge badgeContent={4} color="error">
                             <ShoppingCartOutlinedIcon sx={{
                                 fontSize: {
@@ -210,6 +217,8 @@ export default function Header({ onUpdateLogin, loginState }) {
             }}>
                 <SearchBar isSearchWrap={true} />
             </Toolbar>
+            <Cart openCartDialog={openCartDialog} handleOpenCartDialog={handleOpenCartDialog} />
+
         </AppBar>
     );
 }

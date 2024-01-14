@@ -22,14 +22,14 @@ export default function SignupPage() {
             </Typography>
             <EmailBar />
             <PasswordBar type="signup" />
-            <Button color="secondary" variant="contained" onClick={handleSignUp} sx={{ width: "85%" }}>
+            <Button variant="contained" onClick={handleSignUp} sx={{ width: "85%" }}>
                 Create account
             </Button>
             <Typography
                 noWrap
                 sx={{
                     fontSize: "14px",
-                    color: "primary.secondary",
+                    color: "#6B7280",
                     width: "85%"
                 }}>
                 Already have an account?{" "}

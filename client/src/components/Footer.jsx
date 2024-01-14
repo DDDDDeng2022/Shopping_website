@@ -26,7 +26,8 @@ export default function Footer() {
     }
     return (
         <AppBar position="static" sx={{
-            padding: "10px 30px"
+            padding: "10px 30px",
+            backgroundColor: "#101827"
         }}>
             <Grid
                 xs={12}

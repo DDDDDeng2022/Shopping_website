@@ -26,7 +26,7 @@ export default function SigninPage() {
             </Typography>
             <EmailBar />
             <PasswordBar />
-            <Button color="secondary" variant="contained" onClick={handleSignIn} sx={{ width: "85%" }}>
+            <Button variant="contained" onClick={handleSignIn} sx={{ width: "85%" }}>
                 Sign In
             </Button>
             <Grid container sx={{ fontSize: "16px", width: "85%" }} columns={{ xs: 4, sm: 14 }} >
