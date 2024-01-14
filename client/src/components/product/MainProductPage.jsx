@@ -25,7 +25,7 @@ const StyledPagination = styled(Pagination)({
     border: "1px #ccc solid",
     borderRadius: "5px",
     "& .MuiPaginationItem-root": {
-        color: "#1976d2",
+        color: "#5048E5",
         margin: "0",
         borderRadius: "0",
         borderLeft: "1px #ccc solid",

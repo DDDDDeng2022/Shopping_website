@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import Role from './role.js';
 import ShippingAddress from './shippingAddress.js';
 import { Order } from './order.js';
-import Item from './item.js';
+import Product from './product.js';
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema({
     }],
     cart: [{
         type: mongoose.Types.ObjectId,
-        ref: "Item"
+        ref: "Product"
     }]
 })
 

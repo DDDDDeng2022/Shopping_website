@@ -21,7 +21,7 @@ export default function UpdatePasswordPage() {
                 Enter your email link, we will send you the recovery link
             </Typography>
             <EmailBar />
-            <Button color="secondary" variant="contained" onClick={handleClick} sx={{ width: "85%" }}>
+            <Button variant="contained" onClick={handleClick} sx={{ width: "85%" }}>
                 Update Password
             </Button>
         </OuterBox>

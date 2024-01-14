@@ -28,14 +28,10 @@ const StyledButtonGroup = styled(ButtonGroup)({
     }
 });
 const StyledButton = styled(Button)({
-    backgroundColor: "blue",
-    color: "white",
     "&.Mui-disabled": {
-        backgroundColor: "#1976d2",
+        backgroundColor: "#5048E5",
         color: "white",
-        opacity: 1,
     },
-
 });
 
 function ProductItem({ product }) {
@@ -84,9 +80,9 @@ export function ParoductButton({ product }) {
     return <CardActions sx={{ display: 'flex', alignItems: 'center', padding: "0", flexWrap: 'wrap', maxWidth: "300px" }}>
         <StyledBox>
             <StyledButtonGroup disableElevation variant="contained">
-                <Button size="small" onClick={handleDecrease}><RemoveRoundedIcon color="action" sx={{ fontSize: 20 }} /></Button>
+                <Button size="small" onClick={handleDecrease}><RemoveRoundedIcon sx={{ fontSize: 20 }} /></Button>
                 <StyledButton size="small" disabled>{quantity}</StyledButton>
-                <Button size="small" onClick={handleIncrease}><AddRoundedIcon sx={{ fontSize: 20 }} color="action" /></Button>
+                <Button size="small" onClick={handleIncrease}><AddRoundedIcon sx={{ fontSize: 20 }} /></Button>
             </StyledButtonGroup>
         </StyledBox>
         <Box sx={{ width: "40%" }}>
