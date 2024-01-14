@@ -14,6 +14,8 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Cart from "./cart/CartDialog";
+import { useSelector } from "react-redux";
+
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
@@ -73,10 +75,11 @@ export const SearchBar = (props) => {
         </FormControl>
     );
 };
+  
 
-export default function Header({ onUpdateLogin, loginState }) {
+export default function Header() {
     const [openCartDialog, setOpenCartDialog] = useState(false);
-
+    const isLogin = useSelector((state) => state.isLogin);
     const navigate = useNavigate();
     const handleClick = () => {
         navigate("/signin");
@@ -84,9 +87,9 @@ export default function Header({ onUpdateLogin, loginState }) {
     useEffect(() => {
         const checkLoginStatus = async () => {
             try {
-                const response = await fetch("/api/auth/checkLogin");
+                const response = await fetch("http://localhost:3000/api/auth/checkLogin");
                 const data = await response.json();
-                onUpdateLogin(data.isLoggedIn);
+                dispatch(setIsLogin())
             } catch (err) {
                 console.error("Error checking login status", err);
             }
@@ -175,8 +178,8 @@ export default function Header({ onUpdateLogin, loginState }) {
                                 可以考虑增加isSignOutDialogOpen,isSignInDialogOpen状态，去进行切换
                                 */}
                             {/* sign out */}
-                            {console.log("Login State:", loginState)}
-                            {loginState ? "Sign in" : "Sign out"}
+                            {console.log("Login State:", isLogin)}
+                            {isLogin ? "Sign in" : "Sign out"}
                         </Typography>
                     </IconButton>
                     <IconButton color="inherit" onClick={handleOpenCartDialog}>

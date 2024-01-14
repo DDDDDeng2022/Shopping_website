@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormControl, TextField } from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { setEmail } from "./EmailPswSlice";
+import { setEmail } from "../../redux/EmailPswSlice";
 import './dialog.css';
 
 const EMAIL_REGEX =
