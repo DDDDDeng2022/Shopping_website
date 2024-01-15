@@ -2,15 +2,16 @@ import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import OuterBox from "./OuterBox";
 import './dialog.css'
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SentEmailPage() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const userId = location.state?.userId;
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            navigate('/updatePasswordPwd');
+            navigate('/updatePasswordPwd', { state: { userId: userId } });
         }, 2000);
-
         return () => clearTimeout(timeoutId);
     }, [navigate]);
 

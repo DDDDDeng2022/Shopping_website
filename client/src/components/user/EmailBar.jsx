@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormControl, TextField } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import { setEmail } from "../../redux/EmailPswSlice";
 import './dialog.css';
 
-const EMAIL_REGEX =
+export const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const EmailBar = () => {
@@ -20,6 +20,9 @@ const EmailBar = () => {
             setValidEmail(false);
         }
     };
+    useEffect(() => {
+        dispatch(setEmail(""));
+    }, []);
 
     return (
         <div className="inputContainer">
