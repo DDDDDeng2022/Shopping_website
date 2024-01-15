@@ -1,24 +1,61 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
+const formatCart = (cart) => {
+    const countMap = cart.reduce((acc, id) => {
+        acc[id] = (acc[id] || 0) + 1;
+        return acc;
+    }, {});
+
+    // 将计数结果转换为所需格式的数组
+    return Object.keys(countMap).map(productId => ({
+        productId: productId,
+        amount: countMap[productId]
+    }));
+};
+
+const calculateTotalAmount = (cart, products) => {
+
+    const formatedCart = formatCart(cart);
+    return formatedCart.reduce((total, cartItem) => {
+        const product = products.find(p => p._id === cartItem.productId);
+        return total + (product ? product.price * cartItem.amount : 0);
+    }, 0);
+};
 
 export const UserSlice = createSlice({
     name: 'user',
     initialState: {
+        user_id: '',
         user_name: '',
         role: '',
-        cart: []
+        cart: [],
+        cartTotal: { quantity: 0, amount: 0 },
+        products: []
     },
     reducers: {
+        setProducts: (state, action) => {
+            state.products = action.payload;
+        },
         setUser: (state, action) => {
+            state.user_id = action.payload.id;
             state.user_name = action.payload.name;
             state.role = action.payload.role.name;
-            state.cart = action.payload.cart
+            state.cart = formatCart(action.payload.cart)
+            state.cartTotal = {
+                quantity: action.payload.cart.length,
+                amount: calculateTotalAmount(action.payload.cart, state.products)
+            }
         },
         setCart: (state, action) => {
-            state.cart = action.payload
-        }
+            state.cart = formatCart(action.payload);
+            state.cartTotal = {
+                quantity: action.payload.length,
+                amount: calculateTotalAmount(action.payload, state.products)
+            }
+        },
     }
 })
 
-export const { setUser, setCart } = UserSlice.actions;
+export const { setUser, setCart, setProducts } = UserSlice.actions;
 
 export default UserSlice.reducer;

@@ -9,25 +9,20 @@ import "../../App.css"
 import { useNavigate } from 'react-router-dom';
 import { menuTheme, StyledPagination, StyledFormControl, StyledSelect } from './styledFile/mainProductPageStyle';
 import { getProducts } from './productApi';
-/**
- * todo:
- * 1、创建商品页面的的具体信息，
- * 分成三个部分： 
- *              1、top: 包含标题，排序、添加等
- *              2、main: 展示每个商品，创建相关组件，可先创建一个商品的上市栏，进行复用
- *              3、bottom: Pagination
- * 2、DetailedProduct：待定
- * 3、DetailedCart:待定
- * 4、权限问题
- */
+import { useSelector, useDispatch } from 'react-redux';
+import { setProducts } from "../../redux/userSlice";
 
+const OPTIONS = ["Last added", "Price: low to high", "Price: high to low"]
 function MainProductPage() {
     const [curPage, setCurPage] = React.useState(1);
     const [productData, setProductData] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [rank, setRank] = React.useState(1);
     const [curPageProductsData, setCurPageProductsData] = React.useState([]);
-    const OPTIONS = ["Last added", "Price: low to high", "Price: high to low"]
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const role = useSelector(state => state.user.role);
+
     React.useEffect(() => {
         setLoading(true);
         getProducts()
@@ -35,6 +30,7 @@ function MainProductPage() {
                 setProductData(products);
                 setCurPageProductsData(products.slice(0, 10));
                 setLoading(false);
+                dispatch(setProducts(products));
             })
             .catch(err => {
                 console.error('Error:', err);
@@ -42,10 +38,10 @@ function MainProductPage() {
     }, []);
 
     React.useEffect(() => {
-        const data = productData;
+        const data = [...productData];
+        console.log("rank changed", rank);
         if (rank === 0) {
             data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
         } else if (rank === 2) {
             data.sort((a, b) => b.price - a.price);
         }
@@ -54,15 +50,14 @@ function MainProductPage() {
         }
         setProductData(data);
         setCurPage(1);
-        setCurPageProductsData(productData.slice(0, 10));
+        setCurPageProductsData(data.slice(0, 10));
     }, [rank]);
+
     const handlePageChange = (e, value) => {
         setCurPage(value);
         setCurPageProductsData(productData.slice((value - 1) * 10, value * 10));
     }
-    const handleRankChange = (e) => {
-        setRank(e.target.value);
-    }
+
     const CustomIcon = () => {
         if (rank === 1) {
             return <ArrowDropUpIcon />;
@@ -72,7 +67,6 @@ function MainProductPage() {
             return null;
         }
     };
-    const navigate = useNavigate();
     const handleAddProduct = () => {
         navigate(`/productcreate`);
     };
@@ -93,11 +87,9 @@ function MainProductPage() {
                                 <StyledSelect
                                     value={rank}
                                     IconComponent={CustomIcon}
-                                    onChange={handleRankChange}
+                                    onChange={(e) => setRank(e.target.value)}
                                     color="primary"
-                                    renderValue={(selected) => (
-                                        OPTIONS[selected]
-                                    )}
+                                    renderValue={(selected) => (OPTIONS[selected])}
                                 >
                                     {OPTIONS.map((option, index) => (
                                         <MenuItem value={index} key={option}>
@@ -108,7 +100,7 @@ function MainProductPage() {
                                 </StyledSelect>
                             </StyledFormControl>
                         </ThemeProvider>
-                        <Button variant="contained" onClick={handleAddProduct}>Add Product</Button>
+                        {role === "Admin" && <Button variant="contained" onClick={handleAddProduct}>Add Product</Button>}
                     </Grid>
                 </Grid>
             </div>

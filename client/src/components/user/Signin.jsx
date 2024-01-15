@@ -16,11 +16,12 @@ export default function SigninPage() {
     const password = useSelector((state) => state.emailPsw.password);
     const navigate = useNavigate();
     const handleSignIn = async () => {
-        const response = await apiCall({ url: '/api/auth/login', method: 'POST', data: {email, password}})
+        const response = await apiCall({ url: '/api/auth/login', method: 'POST', data: { email, password } })
         if (response) {
             dispatch(setIsLogin(true));
             console.log(response);
-            dispatch(setUser({ name: response.name, role: response.role, cart: response.cart }));
+            console.log("response.user_id: ", response.user_id);
+            dispatch(setUser({ id: response.user_id, name: response.name, role: response.role, cart: response.cart }));
             localStorage.setItem('token', response.token);
         } else {
             console.error('Email or Password is wrong');

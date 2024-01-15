@@ -1,30 +1,30 @@
-import * as React from 'react';
+/* eslint-disable react/prop-types */
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { ButtonGroup, Tooltip } from '@mui/material';
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import { FlexedBox } from './cartStyle';
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../../redux/userSlice";
+import { updateCart } from './cartApi';
 
-
-export default function CartItem() {
-    const [quantity, setQuantity] = React.useState(1);
-
-    const handleDecrease = (e) => {
-        //  todo 联合购物车使用
-        e.stopPropagation();
-        setQuantity(q => q - 1);
+export default function CartItem({ product, quantity }) {
+    const dispatch = useDispatch();
+    const userId = useSelector(state => state.user.user_id);
+    const handleUpdate = async (type) => {
+        try {
+            const updatedCart = await updateCart(userId, product._id, type);
+            dispatch(setCart(updatedCart));
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
-    const handleIncrease = (e) => {
-        //  todo 联合购物车使用
-        e.stopPropagation();
-        setQuantity(q => q + 1);
-    }
     return <div style={{ display: "flex", gap: "20px", height: 100 }}>
         <img
             style={{ width: 100, height: 100 }}
-            src="https://www.dailypaws.com/thmb/RX8699_a38h-sFohET1VVRt64sI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/skateboarding-rabbit-168986582-2000-9979fa684e214a129d2323e911b7b589.jpg"
-            alt="Metaa Quest2 VR"
+            src={product.link}
+            alt={product.name}
         />
         <FlexedBox sx={{ flex: 1, justifyContent: "space-between" }}>
             <div style={{
@@ -34,14 +34,13 @@ export default function CartItem() {
             }}>
                 <Tooltip title="Meta">
                     <Typography sx={{ fontSize: "16px", fontWeight: "600", maxWidth: "250px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>
-                        {/* {`$${product ? product.title : ""}`} */}
-                        Meta Quest2 VR
+                        {`${product ? product.name : ""}`}
                     </Typography>
                 </Tooltip>
 
                 <Typography sx={{ fontSize: "16px", color: "#5048E5", fontWeight: "600" }}>
-                    {/* {`$${product ? product.price.toFixed(2) : ""}`} */}
-                    $200.00
+                    {`$${product ? (product.price * quantity).toFixed(2) : ""}`}
+
                 </Typography>
             </div>
             <div style={{
@@ -50,15 +49,15 @@ export default function CartItem() {
                 flexWrap: "wrap",
             }}>
                 <ButtonGroup disableElevation>
-                    <Button onClick={handleDecrease}>
+                    <Button onClick={() => handleUpdate("decrease")}>
                         <RemoveRoundedIcon sx={{ fontSize: 15, color: "#bbb8b8" }} />
                     </Button>
                     <Button disabled>{quantity}</Button>
-                    <Button onClick={handleIncrease}>
+                    <Button onClick={() => handleUpdate("add")}>
                         <AddRoundedIcon sx={{ fontSize: 15, color: "#bbb8b8" }} />
                     </Button>
                 </ButtonGroup>
-                <Button variant="text" onClick={() => { }} sx={{
+                <Button variant="text" onClick={() => { handleUpdate("remove") }} sx={{
                     fontSize: "15px",
                     color: "grey",
                     '&:hover': {
