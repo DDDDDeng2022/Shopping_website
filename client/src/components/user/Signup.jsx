@@ -12,19 +12,18 @@ import apiCall from "../../services/apiCall"
 
 export default function SignupPage() {
     const [signUpAsAdmin, setSignUpAsAdmin] = useState(false);
-    const email = useSelector((state) => state.email);
-    const password = useSelector((state) => state.password);
+    const email = useSelector((state) => state.emailPsw.email);
+    const password = useSelector((state) => state.emailPsw.password);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleSignUp = () => {
         const response = apiCall({ url: '/api/auth/signup', method: 'POST', data: {email, password, role: signUpAsAdmin ? 'Admin': 'User'} });
-        if (response.ok) {
+        if (response) {
             dispatch(setIsLogin(true));
-            localStorage.setItem('token', response.json().token);
+            localStorage.setItem('token', response.token);
         } else {
             console.error('Email or Password is wrong');
         }
-        // alert(`email: ${email}, password: ${password}`);
         navigate(`/`);
     };
     const handleSignUpAsAdmin = () => {

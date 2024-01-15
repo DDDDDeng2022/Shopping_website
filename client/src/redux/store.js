@@ -1,15 +1,16 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import EmailPswSlice from "./EmailPswSlice";
-import UserSlice from "./userSlice";
-import LoginStatusSlice from "./loginStateSlice"
+import EmailPswReducer from "./EmailPswSlice";
+import UserReducer from "./userSlice";
+import LoginStatusReducer from "./loginStateSlice"
 
 const rootReducer = combineReducers({
-    emailPsw: EmailPswSlice.reducer,
-    user: UserSlice.reducer,
-    isLogin: LoginStatusSlice.reducer,
+    emailPsw: EmailPswReducer,
+    user: UserReducer,
+    isLogin: LoginStatusReducer,
 });
 
-export const store = configureStore({
+const store = configureStore({
     reducer: rootReducer,
 });
 
+export default store;

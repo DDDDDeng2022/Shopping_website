@@ -21,17 +21,21 @@ const checkLogin = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const result = await User.findOne({ email: email }).then((user) => {
+        console.log(email);
+        console.log(password);
+        const result = await User.findOne({ email: email }).populate('role').then((user) => {
+            console.log(`result : ${user}`)
+            if (!user) {
+                res.status(403).json({ message: 'Invalid email' });
+            } else if (user.password !== password) {
+                res.status(403).json({ message: 'Invalid password' });
+            }
             const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '3d' });
             res.status(201).json({ user_name: user.name, role: user.role, cart: user.cart, token });
         });
-        if (!result) {
-            res.status(403).json({ message: 'Invalid email' });
-        } else if (result.password !== password) {
-            res.status(403).json({ message: 'Invalid password' });
-        }
     } catch (err) {
-        res.status(500).json({ message: 'Server Error' });
+        console.log(err);
+        // res.status(500).json({ message: 'Server Error' });
     }
 }
 
@@ -44,8 +48,9 @@ const signup = async (req, res) => {
         if (!user.name || !user.email || !user.password) {
             res.status(400).json({ message: "Please provide required fields" });
         }
-        await user.save();
-        res.status(201).json(user);
+        await user.save().then(u => {
+            res.status(201).json(user)
+        });
     } catch (err) {
         res.status(500).json({ err, message: 'Server Error' });
     }

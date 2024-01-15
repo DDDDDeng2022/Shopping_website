@@ -12,10 +12,13 @@ export const UserSlice = createSlice({
             state.user_name = action.payload.name;
             state.role = action.payload.role.name;
             state.cart = action.payload.cart
+        },
+        setCart: (state, action) => {
+            state.cart = action.payload
         }
     }
 })
 
-export const { setUser } = UserSlice.actions;
+export const { setUser, setCart } = UserSlice.actions;
 
 export default UserSlice.reducer;

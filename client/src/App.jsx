@@ -10,7 +10,7 @@ import UpdatePasswordPage from "./components/user/UpdatePassword";
 import SentEmailPage from "./components/user/SentEmail";
 import ErrorHandlePage from "./components/error/ErrorHandle";
 import { Provider } from 'react-redux';
-import { store } from '../src/redux/store'
+import store from '../src/redux/store'
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./App.css";
 

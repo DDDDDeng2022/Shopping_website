@@ -5,7 +5,7 @@ export const LoginStatusSlice = createSlice({
     initialState: false,
     reducers: {
         setIsLogin: (state, action) => {
-            state.isLogin = action.payload;
+            return action.payload;
         }
     }
 })
