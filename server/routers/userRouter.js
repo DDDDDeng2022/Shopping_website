@@ -2,19 +2,19 @@ import express from "express";
 // import auth from "../middleware/auth.js";
 
 import {
-    getUser,
+    getUserById,
     getCart,
     // createUser,
     updateUser,
     deleteUser,
+    getUserByEmail,
 } from '../controllers/user.js';
 
 const router = express.Router();
 
-// router.get('/');
-// Do we really need getAllUsers?
 
-router.get('/:id', getUser);
+router.get('/:id', getUserById);
+router.get('/email/:id', getUserByEmail);
 
 router.get('/:id/cart', getCart);
 

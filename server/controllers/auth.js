@@ -19,24 +19,22 @@ const checkLogin = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        console.log(email);
-        console.log(password);
-        const result = await User.findOne({ email: email }).populate('role').then((user) => {
-            console.log(`result : ${user}`)
-            if (!user) {
-                res.status(403).json({ message: 'Invalid email' });
-            } else if (user.password !== password) {
-                res.status(403).json({ message: 'Invalid password' });
-            }
+    const { email, password } = req.body;
+    console.log(email);
+    console.log(password);
+    const result = await User.findOne({ email: email }).populate('role').then((user) => {
+        if (!user) {
+            res.status(403).json({ message: 'Invalid email' });
+        } else if (user.password !== password) {
+            res.status(403).json({ message: 'Invalid password' });
+        } else {
             const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '3d' });
-            res.status(201).json({ user_name: user.name, role: user.role, cart: user.cart, token });
-        });
-    } catch (err) {
+            res.status(201).json({ user_name: user.name, role: user.role, cart: user.cart, token });    
+        }
+    }).catch(err => {
         console.log(err);
-        // res.status(500).json({ message: 'Server Error' });
-    }
+        res.status(500).json({ message: 'Internal Server Error' });
+    });
 }
 
 const signup = async (req, res) => {
