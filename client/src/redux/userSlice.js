@@ -15,10 +15,16 @@ export const UserSlice = createSlice({
         },
         setCart: (state, action) => {
             state.cart = action.payload
+        },
+        // eslint-disable-next-line no-unused-vars
+        resetUser: (state, action) => {
+            state.user_name = '',
+            state.role = '',
+            state.cart = []
         }
     }
 })
 
-export const { setUser, setCart } = UserSlice.actions;
+export const { setUser, setCart, resetUser } = UserSlice.actions;
 
 export default UserSlice.reducer;
