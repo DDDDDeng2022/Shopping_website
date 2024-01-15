@@ -24,6 +24,7 @@ const productSchema = new mongoose.Schema({
     link:
     {
         type: String,
+        required: "Photo link is required "
     },
     createdAt: {
         type: Date,

@@ -1,13 +1,14 @@
 import * as React from 'react';
 import ProductListPage from './ProductListPage';
-import { Pagination, Grid, Box, Skeleton, MenuItem, FormControl, Select, Button, ListItemText } from '@mui/material';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles'
+import { Grid, Box, Skeleton, MenuItem, Button, ListItemText } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles'
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import "../../App.css"
 import { useNavigate } from 'react-router-dom';
-
+import { menuTheme, StyledPagination, StyledFormControl, StyledSelect } from './styledFile/mainProductPageStyle';
+import { getProducts } from './productApi';
 /**
  * todo:
  * 1、创建商品页面的的具体信息，
@@ -20,52 +21,6 @@ import { useNavigate } from 'react-router-dom';
  * 4、权限问题
  */
 
-const StyledPagination = styled(Pagination)({
-    display: "inline-flex",
-    border: "1px #ccc solid",
-    borderRadius: "5px",
-    "& .MuiPaginationItem-root": {
-        color: "#5048E5",
-        margin: "0",
-        borderRadius: "0",
-        borderLeft: "1px #ccc solid",
-    },
-    "& .MuiPaginationItem-root.Mui-selected": {
-        color: "white",
-    },
-});
-const StyledFormControl = styled(FormControl)({
-    minWidth: "120px",
-    '& .MuiSelect-select':
-    {
-        height: '40px',
-        padding: "0",
-        lineHeight: "40px",
-        textAlign: "center"
-    }
-});
-const StyledSelect = styled(Select)({
-    '& .MuiSelect-select.MuiInputBase-input.MuiOutlinedInput-input': {
-        paddingRight: 0,
-    },
-    color: "grey",
-    border: "1px solid grey",
-    width: "230px",
-    padding: "0",
-});
-
-const menuTheme = createTheme({
-    components: {
-        MuiMenu: {
-            styleOverrides: {
-                paper: {
-                    backgroundColor: 'white',
-                },
-
-            },
-        },
-    },
-});
 function MainProductPage() {
     const [curPage, setCurPage] = React.useState(1);
     const [productData, setProductData] = React.useState([]);
@@ -74,20 +29,18 @@ function MainProductPage() {
     const [curPageProductsData, setCurPageProductsData] = React.useState([]);
     const OPTIONS = ["Last added", "Price: low to high", "Price: high to low"]
     React.useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                setLoading(true);
-                const product_json = await fetch('http://localhost:3000/api/product');
-                const product_data = await product_json.json();
-                product_data.sort((a, b) => a.price - b.price);
-                setProductData(product_data);
-                setCurPageProductsData(product_data.slice(0, 10));
+        setLoading(true);
+        getProducts()
+            .then(products => {
+                setProductData(products);
+                setCurPageProductsData(products.slice(0, 10));
                 setLoading(false);
-            }
-            catch (err) { console.error('Error:', err); }
-        }
-        fetchProducts();
+            })
+            .catch(err => {
+                console.error('Error:', err);
+            });
     }, []);
+
     React.useEffect(() => {
         const data = productData;
         if (rank === 0) {
