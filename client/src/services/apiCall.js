@@ -19,11 +19,11 @@ export default async function apiCall ({ url: apiUrl, method, data }) {
         body: JSON.stringify(data)
     })
 
-    if (!response.ok) {
-        const { error } = await response.json();
-        console.log(error);
-        throw new Error(error.message);
-    }
+    // if (!response.ok) {
+    //     const { error } = await response.json();
+    //     console.log(error);
+    //     throw new Error(error.message);
+    // }
     const result = await response.json();
     return result;
 }

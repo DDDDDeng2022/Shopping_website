@@ -17,6 +17,7 @@ import Cart from "./cart/CartDialog";
 import { useDispatch, useSelector } from "react-redux";
 import apiCall from "../services/apiCall";
 import { setIsLogin } from "../redux/loginStateSlice";
+import { resetUser, setUser } from "../redux/userSlice";
 
 /**
  * todo:
@@ -85,15 +86,23 @@ export default function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleClick = () => {
-        navigate("/signin");
+        if (isLogin) {
+            dispatch(setIsLogin(false));
+            dispatch(resetUser());
+            localStorage.removeItem('token');
+        } else {
+            navigate("/signin");
+        }
     };
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
-            const response = apiCall({ url: '/api/auth/checkLogin', method: 'GET', data: {token: storedToken} });
-            if (response.ok && response.json().success) {
-                dispatch(setIsLogin(true));
-            }
+            apiCall({ url: '/api/auth/checkLogin', method: 'POST', data: {token: storedToken} }).then((response) => {
+                if (response) {
+                    dispatch(setIsLogin(true));
+                    dispatch(setUser(response));
+                }
+            });
         }
     }, []);
     const handleOpenCartDialog = () => {
