@@ -21,5 +21,7 @@ app.use('/api/user', UserRouter);
 app.use('/api/product', ProductRouter);
 app.use('/api/cart', CartRouter);
 app.use('/api/category', CategoryRouter);
+app.use('/uploads', express.static('uploads'));
+
 
 app.listen(PORT, () => { console.log(`Server started on port: ${PORT}`) });

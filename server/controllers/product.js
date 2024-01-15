@@ -21,7 +21,7 @@ const getProduct = async (req, res) => {
 const createProduct = async (req, res) => {
     try {
         const product = new Product(req.body);
-        if (!product.name || !product.price || !product.quantity) {
+        if (!product.name || !product.price || product.quantity === undefined || product.quantity === null) {
             return res.status(400).json({ message: 'Please provide all fields' });
         }
         await product.save();
@@ -35,9 +35,10 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         req.body.updatedAt = new Date();
-        await Product.findByIdAndUpdate(req.params?.id, req.body, { new: true });
+        const product = await Product.findByIdAndUpdate(req.params?.id, req.body, { new: true });
         res.status(200).json(product);
     } catch (err) {
+        console.log("err: ", err);
         res.status(500).json({ message: 'Server Error' });
     }
 };
@@ -51,10 +52,25 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+const uploadPhoto = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).send({ message: 'No file uploaded.' });
+        }
+        const file = req.file;
+        const imageUrl = `${req.protocol}://${req.get('host')}/${file.path}`;
+        res.status(200).send({ imageUrl: imageUrl });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Server Error' });
+    }
+};
+
 export {
     getAllProducts,
     getProduct,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    uploadPhoto
 };

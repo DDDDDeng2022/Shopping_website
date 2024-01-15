@@ -1,38 +1,10 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Grid, Box, Skeleton, ButtonGroup } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Grid, Box, Skeleton } from '@mui/material';
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
-import { styled } from '@mui/material/styles'
 import { useNavigate } from 'react-router-dom';
-const StyledTypography = styled(Typography)({
-    color: "grey",
-    fontSize: "15px",
-    overflow: "hidden",
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis"
-});
-const StyledBox = styled(Box)({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "lightblue",
-    borderRadius: '4px'
-
-});
-const StyledButtonGroup = styled(ButtonGroup)({
-    "& .MuiButtonGroup-grouped": {
-        border: "none",
-        "&:not(:last-of-type)": {
-            borderRight: "none",
-        },
-    }
-});
-const StyledButton = styled(Button)({
-    "&.Mui-disabled": {
-        backgroundColor: "#5048E5",
-        color: "white",
-    },
-});
+import { StyledTypography, StyledBox, StyledButtonGroup, StyledButton } from './styledFile/productListPageStyle';
 
 function ProductItem({ product }) {
     const navigate = useNavigate();
