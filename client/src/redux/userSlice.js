@@ -57,9 +57,14 @@ export const UserSlice = createSlice({
         setFilter: (state, action) => {
             state.filter = action.payload
         },
+       resetUser: (state, action) => {
+            state.user_name = '',
+            state.role = '',
+            state.cart = []
+        }
     }
 })
 
-export const { setUser, setCart, setProducts, setFilter } = UserSlice.actions;
+export const { setUser, setCart, setProducts, setFilter,resetUser } = UserSlice.actions;
 
 export default UserSlice.reducer;

@@ -1,9 +1,20 @@
 import User from "../db/models/user.js";
 
-const getUser = async (req, res) => {
+const getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params?.id);
         res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ message: 'Server Error' });
+    }
+}
+
+const getUserByEmail = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: decodeURIComponent(req.params?.id) }).then((user) => {
+            console.log(user);
+            res.status(200).json(user);
+        });
     } catch (err) {
         res.status(500).json({ message: 'Server Error' });
     }
@@ -53,7 +64,8 @@ const deleteUser = async (req, res) => {
 }
 
 export {
-    getUser,
+    getUserById,
+    getUserByEmail,
     getCart,
     // createUser,
     updateUser,

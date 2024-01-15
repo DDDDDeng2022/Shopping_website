@@ -6,7 +6,8 @@ import ProductDetailPage from "./components/product/ProductDetailPage";
 import ProductEdit from "./components/product/EditProct";
 import SigninPage from "./components/user/Signin";
 import SignupPage from "./components/user/Signup";
-import UpdatePasswordPage from "./components/user/UpdatePassword";
+import UpdatePasswordEmailPage from "./components/user/UpdatePasswordEmail";
+import UpdatePasswordPwdPage from "./components/user/UpdatePasswordPwd";
 import SentEmailPage from "./components/user/SentEmail";
 import ErrorHandlePage from "./components/error/ErrorHandle";
 import { Provider } from 'react-redux';
@@ -43,7 +44,8 @@ function App() {
               <Route path="/product/:id" element={<ProductDetailPage />} />
               <Route path="/signin" element={<SigninPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/updatePassword" element={<UpdatePasswordPage />} />
+              <Route path="/updatePassword" element={<UpdatePasswordEmailPage />} />
+              <Route path="/updatePasswordPwd" element={<UpdatePasswordPwdPage />} />
               <Route path="/sentEmail" element={<SentEmailPage />} />
               <Route path="/productedit" element={<ProductEdit />} />
               <Route path="/productcreate/" element={<ProductEdit />} />
