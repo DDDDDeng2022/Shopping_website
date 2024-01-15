@@ -12,8 +12,6 @@ const checkLogin = async (req, res) => {
         const decoded = await jwt.verify(token, process.env.JWT_SECRET);
         const isTokenExpired = decoded.exp < Date.now() / 1000;
 
-        console.log(isTokenExpired)
-        console.log(decoded)
         if (!isTokenExpired) {
             await User.findById(decoded?.id).populate('role').then((user) => {
                 res.status(200).json({ name: user.name, role: user.role, cart: user.cart })
