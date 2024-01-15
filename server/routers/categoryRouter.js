@@ -4,7 +4,7 @@ import { createCategory, getAllCategories, getCategoryById, getCategoryByName, a
 const router = express.Router();
 
 //get formated categories array
-router.get('/all', getAllCategories);
+router.get('/', getAllCategories);
 
 //get category by name
 router.get('/name/:name', getCategoryByName);
