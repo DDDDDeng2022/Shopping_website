@@ -3,10 +3,11 @@ import Grid from "@mui/material/Grid";
 import PasswordBar from "./PasswordBar";
 import EmailBar from "./EmailBar";
 import OuterBox from "./OuterBox";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from "react";
+import { setIsLogin } from "../../redux/loginStateSlice";
 import apiCall from "../../services/apiCall"
 
 export default function SignupPage() {
@@ -14,10 +15,16 @@ export default function SignupPage() {
     const email = useSelector((state) => state.email);
     const password = useSelector((state) => state.password);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleSignUp = () => {
-        // todo 同sign in：
         const response = apiCall({ url: '/api/auth/signup', method: 'POST', data: {email, password, role: signUpAsAdmin ? 'Admin': 'User'} });
-        alert(`email: ${email}, password: ${password}`);
+        if (response.ok) {
+            dispatch(setIsLogin(true));
+            localStorage.setItem('token', response.json().token);
+        } else {
+            console.error('Email or Password is wrong');
+        }
+        // alert(`email: ${email}, password: ${password}`);
         navigate(`/`);
     };
     const handleSignUpAsAdmin = () => {

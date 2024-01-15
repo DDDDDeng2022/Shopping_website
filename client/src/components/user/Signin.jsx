@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { setIsLogin } from "../../redux/loginStateSlice";
+import apiCall from "../../services/apiCall"
 
 export default function SigninPage() {
     const dispatch = useDispatch();
@@ -14,27 +15,18 @@ export default function SigninPage() {
     const password = useSelector((state) => state.password);
     const navigate = useNavigate();
     const handleSignIn = async () => {
-        // todo 像后端验证数据：
-        // 首先要保证用户账号是有效的，才进行跳转到productlList页面;
-        // 方法1: 使用navigate(`/url`, { state: { 数据 } });，然后在接受页面使用useLocation获取,把用户信息传给商品界面
-        // 方法2： 在store里新建其他状态，把用户信息传进去，在其他页面获取
         try {
-            const response = await fetch('http://localhost:3000/api/auth/login', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password })
-            });
+            const response = await apiCall({ url: '/api/auth/login', method: 'GET', data: {email, password}})
             if (response.ok) {
                 dispatch(setIsLogin(true));
+                localStorage.setItem('token', response.json().token);
             } else {
                 console.error('Email or Password is wrong');
             }
         } catch (err) {
             console.error('Error during Signin', err);
         }
-        alert(`email: ${email}, password: ${password}`);
+        // alert(`email: ${email}, password: ${password}`);
         navigate(`/`);
     };
     return (

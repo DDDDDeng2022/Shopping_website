@@ -1,15 +1,29 @@
 import User from '../db/models/user.js';
-import Role from '../db/models/role.js'
+import Role from '../db/models/role.js';
+import jwt from 'jsonwebtoken';
 
 /*
     TODO: Add a JWT creator for auto-signIn
 */
 
+const checkLogin = async (req, res) => {
+    try {
+        const { token } = req.body;
+        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+        const isTokenExpired = decoded.exp < Date.now() / 1000;
+
+        res.status(200).json({ success: !isTokenExpired, message: "User token valid" })
+    } catch (err) {
+        res.status(500).json({ message: 'Server Error' });
+    }
+}
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const result = await User.findOne({ email: email }).then((user) => {
-            res.status(201).json({ user_name: user.name, role: user.role, cart: user.cart });
+            const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '3d' });
+            res.status(201).json({ user_name: user.name, role: user.role, cart: user.cart, token });
         });
         if (!result) {
             res.status(403).json({ message: 'Invalid email' });
@@ -39,5 +53,6 @@ const signup = async (req, res) => {
 
 export {
     login,
+    checkLogin,
     signup
 }

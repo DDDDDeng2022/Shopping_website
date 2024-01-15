@@ -11,6 +11,7 @@ export const UserSlice = createSlice({
         setUser: (state, action) => {
             state.user_name = action.payload.name;
             state.role = action.payload.role.name;
+            state.cart = action.payload.cart
         }
     }
 })
