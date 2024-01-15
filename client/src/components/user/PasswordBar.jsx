@@ -3,7 +3,7 @@ import { FormControl, IconButton, Tooltip, OutlinedInput, InputAdornment, FormHe
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useDispatch } from 'react-redux';
-import { setPassword } from "./EmailPswSlice";
+import { setPassword } from "../../redux/EmailPswSlice";
 import './dialog.css';
 
 // This regex means at least 1 lowercase, at least 1 uppercase, at least 1 digits(number), and no space at least 8 characters

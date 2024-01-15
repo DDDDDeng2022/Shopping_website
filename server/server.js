@@ -12,11 +12,11 @@ const app = express();
 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', AuthRouter);
 
-app.use(cors());
 app.use('/api/user', UserRouter);
 app.use('/api/product', ProductRouter);
 app.use('/api/cart', CartRouter);
