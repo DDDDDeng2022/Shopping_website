@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
 
 
 export const EmailPswSlice = createSlice({
@@ -20,6 +19,4 @@ export const EmailPswSlice = createSlice({
 
 export const { setEmail, setPassword } = EmailPswSlice.actions;
 
-export const store = configureStore({
-    reducer: EmailPswSlice.reducer
-});
+export default EmailPswSlice.reducer;

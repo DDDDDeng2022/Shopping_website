@@ -10,9 +10,8 @@ import UpdatePasswordPage from "./components/user/UpdatePassword";
 import SentEmailPage from "./components/user/SentEmail";
 import ErrorHandlePage from "./components/error/ErrorHandle";
 import { Provider } from 'react-redux';
-import { store } from './components/user/EmailPswSlice'
+import store from '../src/redux/store'
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useState } from "react";
 import "./App.css";
 
 /**
@@ -38,14 +37,13 @@ function App() {
     },
   });
 
-  const [loginState, setLoginState] = useState(false);
 
   return (
     <ThemeProvider theme={primaryTheme}>
       <Provider store={store}>
         <Router>
           <div className="container">
-            <Header onUpdateLogin={setLoginState} loginState={loginState} />
+            <Header />
             <Routes>
               <Route path="/" element={<MainProductPage />} />
               <Route path="/product/:id" element={<ProductDetailPage />} />

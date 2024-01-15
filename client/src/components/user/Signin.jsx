@@ -3,20 +3,28 @@ import Grid from "@mui/material/Grid";
 import PasswordBar from "./PasswordBar";
 import OuterBox from "./OuterBox";
 import EmailBar from "./EmailBar";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { setIsLogin } from "../../redux/loginStateSlice";
+import apiCall from "../../services/apiCall"
+import { setUser } from "../../redux/userSlice";
 
 export default function SigninPage() {
-    const email = useSelector((state) => state.email);
-    const password = useSelector((state) => state.password);
+    const dispatch = useDispatch();
+    const email = useSelector((state) => state.emailPsw.email);
+    const password = useSelector((state) => state.emailPsw.password);
     const navigate = useNavigate();
-    const handleSignIn = () => {
-        // todo 像后端验证数据：
-        // 首先要保证用户账号是有效的，才进行跳转到productlList页面;
-        // 方法1: 使用navigate(`/url`, { state: { 数据 } });，然后在接受页面使用useLocation获取,把用户信息传给商品界面
-        // 方法2： 在store里新建其他状态，把用户信息传进去，在其他页面获取
-        alert(`email: ${email}, password: ${password}`);
+    const handleSignIn = async () => {
+        const response = await apiCall({ url: '/api/auth/login', method: 'POST', data: {email, password}})
+        if (response) {
+            dispatch(setIsLogin(true));
+            console.log(response);
+            dispatch(setUser({ name: response.name, role: response.role, cart: response.cart }));
+            localStorage.setItem('token', response.token);
+        } else {
+            console.error('Email or Password is wrong');
+        }
         navigate(`/`);
     };
     return (

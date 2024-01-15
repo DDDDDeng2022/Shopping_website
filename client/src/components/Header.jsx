@@ -14,6 +14,10 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Cart from "./cart/CartDialog";
+import { useDispatch, useSelector } from "react-redux";
+import apiCall from "../services/apiCall";
+import { setIsLogin } from "../redux/loginStateSlice";
+
 /**
  * todo:
  * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
@@ -73,25 +77,24 @@ export const SearchBar = (props) => {
         </FormControl>
     );
 };
+  
 
-export default function Header({ onUpdateLogin, loginState }) {
+export default function Header() {
     const [openCartDialog, setOpenCartDialog] = useState(false);
-
+    const isLogin = useSelector((state) => state.isLogin);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleClick = () => {
         navigate("/signin");
     };
     useEffect(() => {
-        const checkLoginStatus = async () => {
-            try {
-                const response = await fetch("/api/auth/checkLogin");
-                const data = await response.json();
-                onUpdateLogin(data.isLoggedIn);
-            } catch (err) {
-                console.error("Error checking login status", err);
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            const response = apiCall({ url: '/api/auth/checkLogin', method: 'GET', data: {token: storedToken} });
+            if (response.ok && response.json().success) {
+                dispatch(setIsLogin(true));
             }
-        };
-        checkLoginStatus();
+        }
     }, []);
     const handleOpenCartDialog = () => {
         setOpenCartDialog(!openCartDialog);
@@ -158,25 +161,7 @@ export default function Header({ onUpdateLogin, loginState }) {
                             component="div"
                             sx={{ display: { xs: "none", sm: "block" } }}
                         >
-                            {/* todo: 
-                             1、需要在app.js加入一个state（isLogin）并传递到该组件，
-                             将此处通过判断props的值控制显示为Sign Out还是Sign In
-                                
-                                    {isLogin?"Sign Out" :"Sign In"}
-
-                             2、添加相关点击事件，点击事件应该触发一个Dialog进行操作的确认。
-                                在此处根据state render不同的的Dialog组件，
-                                如
-                                    <SignOutDialog/>(只需包含“确认退出登录”等信息),可能需要使用useCallback进行信息验证
-                                    <SignOutDialog/>，(Material UI参考Dialog,TextFiled)
-                                        其中又包含<SignUpDialog/><ForgetPwdDialog/><PwdSentDialog/>等组件
-                                在创建相关Dialog的时候我们可以将这些组件单独放在一个新的文件夹
-
-                                可以考虑增加isSignOutDialogOpen,isSignInDialogOpen状态，去进行切换
-                                */}
-                            {/* sign out */}
-                            {console.log("Login State:", loginState)}
-                            {loginState ? "Sign in" : "Sign out"}
+                            {isLogin ? "Sign Out" : "Sign In"}
                         </Typography>
                     </IconButton>
                     <IconButton color="inherit" onClick={handleOpenCartDialog}>
