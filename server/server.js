@@ -19,5 +19,6 @@ app.use(cors());
 app.use('/api/user', UserRouter);
 app.use('/api/product', ProductRouter);
 app.use('/api/cart', CartRouter);
+app.use('/uploads', express.static('uploads'));
 
 app.listen(PORT, () => { console.log(`Server started on port: ${PORT}`) });

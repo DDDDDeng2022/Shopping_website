@@ -1,52 +1,26 @@
-import Box from "@mui/system/Box";
-import { Grid, Typography } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-
+import { Typography, Button } from "@mui/material";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { useNavigate } from 'react-router-dom';
+import '../../App.css'
 export default function ErrorHandlePage() {
-    const box_theme = createTheme({
-        palette: {
-            primary: {
-                main: "#FFFFFF",
-            },
-            secondary: {
-                main: "#5048E5",
-            },
-        },
-    });
-
-    return (
-        <div className="errorBox">
-            <ThemeProvider theme={box_theme}>
-                <Box
-                    sx={{
-                        boxSizing: "border-box",
-                        width: {
-                            sm: "100%",
-                            md: "600px",
-                        },
-                        height: "528px",
-                        borderRadius: "10px",
-                        boxShadow: 3,
-                        p: 2,
-                        m: 1,
-                        textAlign: "center",
-                        fontSize: "1rem",
-                        margin: "auto",
-                    }}
-                >
-                    <Grid
-                        container
-                        spacing={2}
-                        justifyContent="space-evenly"
-                        justifyItems="center"
-                        flexDirection="row"
-                    >
-                        <Grid item xs={10}>
-                            <Typography variant="h3">404</Typography>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </ThemeProvider>
+    const navigate = useNavigate();
+    const handleBack = () => {
+        navigate(`/`);
+    };
+    return (<div className='content'>
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "white",
+            gap: "20px",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center"
+        }}>
+            <ErrorOutlineIcon color="primary" sx={{ fontSize: { xs: "40px", sm: "60px" } }} />
+            <Typography sx={{ fontWeight: 600, fontSize: { xs: "15px", sm: "20px" } }}>Oops, something went wrong!</Typography>
+            <Button variant="contained" onClick={handleBack} sx={{ fontSize: { xs: "10px", sm: "16px" } }}> Go Home</Button>
         </div>
+    </div >
     );
 }
