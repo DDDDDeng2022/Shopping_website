@@ -12,7 +12,15 @@ const checkLogin = async (req, res) => {
         const decoded = await jwt.verify(token, process.env.JWT_SECRET);
         const isTokenExpired = decoded.exp < Date.now() / 1000;
 
-        res.status(200).json({ success: !isTokenExpired, message: "User token valid" })
+        console.log(isTokenExpired)
+        console.log(decoded)
+        if (!isTokenExpired) {
+            await User.findById(decoded?.id).populate('role').then((user) => {
+                res.status(200).json({ name: user.name, role: user.role, cart: user.cart })
+            });
+        } else {
+            res.status(401).json({ message: 'Token expired' })
+        }
     } catch (err) {
         res.status(500).json({ message: 'Server Error' });
     }
