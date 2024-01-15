@@ -1,11 +1,9 @@
-import { Button, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Button, Typography, Grid } from "@mui/material";
 import PasswordBar from "./PasswordBar";
 import OuterBox from "./OuterBox";
 import EmailBar from "./EmailBar";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { setIsLogin } from "../../redux/loginStateSlice";
 import apiCall from "../../services/apiCall"
 import { setUser } from "../../redux/userSlice";

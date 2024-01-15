@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import { TextField, MenuItem, InputAdornment, OutlinedInput, FormControl, Button, Typography, Grid, Box } from '@mui/material';
 import { ThemeProvider } from "@mui/material/styles";
@@ -6,8 +7,7 @@ import { updateProduct, addProduct, deleteProduct, uploadImage } from './product
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { useNavigate } from 'react-router-dom';
 import { productEditTheme, Div, VisuallyHiddenInput } from './styledFile/productEditStyle';
-
-const categories = ["category1", "category2", "category3"];
+import { getCategories } from './categoryApi';
 
 export function ProductEdit() {
     const location = useLocation();
@@ -21,13 +21,33 @@ export function ProductEdit() {
     const [photoLink, setPhotoLink] = React.useState("");
     const [loading, setLoading] = React.useState(false);
     const [showError, setShowError] = React.useState(false);
-
+    const [categories, setCategories] = React.useState([{ id: "", name: "" }]);
+    const findCategoryById = (categories, id) => {
+        const category = categories.find(category => category.id.toString() === id);
+        return category ? { id: id, name: category.name } : null;
+    }
+    const navigate = useNavigate();
     React.useEffect(() => {
-        setProductName(product ? product.name : "");
-        setDescription(product ? product.description : "");
-        setPrice(product ? product.price : "");
-        setQuantity(product ? product.quantity : "");
-        setPhotoLink(product ? product.link : "http://");
+        const fetchCategories = async () => {
+            try {
+                const fetchedCategories = await getCategories();
+                setCategories(fetchedCategories);
+                if (product) {
+                    const matchedCategory = findCategoryById(fetchedCategories, product.category);
+                    setCategory(matchedCategory || (fetchedCategories.length > 0 ? fetchedCategories[0] : { id: '', name: '' }));
+                } else {
+                    setCategory(fetchedCategories.length > 0 ? fetchedCategories[0] : { id: '', name: '' });
+                }
+                setProductName(product ? product.name : "");
+                setDescription(product ? product.description : "");
+                setPrice(product ? product.price : "");
+                setQuantity(product ? product.quantity : "");
+                setPhotoLink(product ? product.link : "http://");
+            } catch (err) {
+                console.error('Fetch error:', err);
+            }
+        };
+        fetchCategories();
     }, [])
 
     const handleSubmit = async () => {
@@ -41,21 +61,19 @@ export function ProductEdit() {
             description: description,
             price: Number(price),
             quantity: Number(quantity),
+            category: category.id,
             link: photoLink
         };
-        console.log("newProductData: ", newProductData);
         try {
             setLoading(true);
             if (type === "save") {
-                const updatedProduct = await updateProduct(product._id, newProductData);
-                console.log("update successfully: ", updatedProduct);
+                await updateProduct(product._id, newProductData);
             }
             else {
-                const updatedProduct = await addProduct(newProductData);
-                console.log("update successfully: ", updatedProduct);
+                await addProduct(newProductData);
             }
-
-
+            alert(`${type} successfully!`);
+            navigate('/');
         } catch (err) {
             console.error('Update failed:', err);
         } finally {
@@ -74,9 +92,6 @@ export function ProductEdit() {
             }
         }
     };
-
-    const navigate = useNavigate();
-
     const handleDelete = async () => {
         try {
             alert(`product ${productName}: ${product._id}will be deleted.`)
@@ -84,7 +99,7 @@ export function ProductEdit() {
             console.log("delete successfully");
             navigate(`/`);
         } catch (err) {
-            console.error('Update failed:', err);
+            console.error('delete failed:', err);
         }
     }
 
@@ -136,10 +151,16 @@ export function ProductEdit() {
                 <Grid container spacing={1} columns={{ xs: 4, sm: 12 }} >
                     <Grid item xs={4} sm={6} >
                         <InputContainer title="Category">
-                            <TextField select defaultValue="category1">
-                                {categories.map((option, index) => (
-                                    <MenuItem key={index} value={option}>
-                                        {option}
+                            <TextField select
+                                value={category ? category.name : ''}
+                                onChange={(e) => {
+                                    const selectedCategory = categories.find(cat => cat.name === e.target.value);
+                                    setCategory(selectedCategory || { id: '', name: '' });
+                                }}
+                            >
+                                {categories.map((category) => (
+                                    <MenuItem key={category.id} value={category.name}>
+                                        {category.name}
                                     </MenuItem>
                                 ))}
                             </TextField>

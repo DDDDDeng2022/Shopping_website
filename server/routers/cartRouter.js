@@ -5,21 +5,23 @@ import {
     decreaseItem,
     formatCart,
     removeItem,
+    clearItem
     // test
-}from '../controllers/cart.js';
+} from '../controllers/cart.js';
 
 const router = express.Router();
 
 // increase the amount of a product by 1, if none exists, create a new item
-router.put('/add/user/:userId/product/:productId', addItem);
+router.put('/user/:userId/product/:productId/add', addItem);
 // router.get('test', test)
 
 // decrease the amount of a product by 1, if only one exists, remove the whole item
-router.put('/decrease/user/:userId/product/:productId', decreaseItem);
+router.put('/user/:userId/product/:productId/decrease', decreaseItem);
 
 //remove the entire item, i.e. decrease the amount directly to 0
-router.put('/remove/user/:userId/product/:productId', removeItem);
+router.put('/user/:userId/product/:productId/remove', removeItem);
 
+router.put('/user/:userId/clear', clearItem);
 //get a format cart object for cart component at front end:
 /* return data: 
  "formatCart": [

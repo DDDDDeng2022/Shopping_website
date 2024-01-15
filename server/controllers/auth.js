@@ -35,7 +35,7 @@ const login = async (req, res) => {
             res.status(403).json({ message: 'Invalid password' });
         } else {
             const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '3d' });
-            res.status(201).json({ user_name: user.name, role: user.role, cart: user.cart, token });    
+            res.status(201).json({ user_id: user._id, user_name: user.name, role: user.role, cart: user.cart, token });
         }
     }).catch(err => {
         console.log(err);
