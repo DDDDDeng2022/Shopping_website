@@ -8,7 +8,7 @@ export default function SentEmailPage() {
                 <ForwardToInboxIcon
                     sx={{
                         fontSize: 70,
-                        color: "secondary.main"
+                        color: "primary.main"
                     }} />
                 <div className="emailText">
                     We have sent the update password link to your email, please check that!

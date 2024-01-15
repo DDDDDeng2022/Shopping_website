@@ -22,11 +22,10 @@ import "./App.css";
  */
 
 function App() {
-  const darkTheme = createTheme({
+  const primaryTheme = createTheme({
     palette: {
-      mode: "dark",
       primary: {
-        main: "#1976d2",
+        main: "#5048E5",
       },
     }, components: {
       MuiButton: {
@@ -42,7 +41,7 @@ function App() {
   const [loginState, setLoginState] = useState(false);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={primaryTheme}>
       <Provider store={store}>
         <Router>
           <div className="container">
