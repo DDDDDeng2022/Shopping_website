@@ -1,11 +1,8 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
-import Button from '@mui/material/Button';
+import { Button, IconButton, Typography, Box, Divider, FormControl, TextField } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import { Box, Divider, FormControl, TextField } from '@mui/material';
 import { StyledBox, FlexedBox, cartTheme, SecondBox } from './cartStyle';
 import CartItem from './CartItem';
 import { useSelector, useDispatch } from "react-redux";
@@ -22,11 +19,10 @@ export default function CartDialog(props) {
     const cartTotal = useSelector((state => state.user.cartTotal));
     const cart = useSelector(state => state.user.cart);
     const products = useSelector((state) => state.user.products);
-    const dispatch = useDispatch();
     const userId = useSelector(state => state.user.user_id);
+    const dispatch = useDispatch();
 
     const handleConpons = () => {
-        console.log("!COUPONS.includes(coupon.toLowerCase()): ", COUPONS.includes(coupon.toLowerCase()));
         if (coupon == "") {
             setCouponErrorInfo("Coupon can not be blank!");
             setDiscount(1);
@@ -106,7 +102,6 @@ export default function CartDialog(props) {
                                             placeholder="promotion code"
                                             type="text"
                                             error={couponErrorInfo != ""}
-                                        // helperText={couponErrorInfo}
                                         />
                                     </FormControl>
                                     <Button variant="contained" onClick={handleConpons}>Apply</Button>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import { TextField, MenuItem, InputAdornment, OutlinedInput, FormControl, Button, Typography, Grid, Box } from '@mui/material';
 import { ThemeProvider } from "@mui/material/styles";
@@ -66,16 +67,13 @@ export function ProductEdit() {
         try {
             setLoading(true);
             if (type === "save") {
-                const updatedProduct = await updateProduct(product._id, newProductData);
-                console.log("update successfully: ", updatedProduct);
+                await updateProduct(product._id, newProductData);
             }
             else {
-                const updatedProduct = await addProduct(newProductData);
-                console.log("product successfully added : ", updatedProduct);
+                await addProduct(newProductData);
             }
             alert(`${type} successfully!`);
-
-
+            navigate('/');
         } catch (err) {
             console.error('Update failed:', err);
         } finally {

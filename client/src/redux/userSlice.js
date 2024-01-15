@@ -30,7 +30,8 @@ export const UserSlice = createSlice({
         role: '',
         cart: [],
         cartTotal: { quantity: 0, amount: 0 },
-        products: []
+        products: [],
+        filter: ""
     },
     reducers: {
         setProducts: (state, action) => {
@@ -53,9 +54,12 @@ export const UserSlice = createSlice({
                 amount: calculateTotalAmount(action.payload, state.products)
             }
         },
+        setFilter: (state, action) => {
+            state.filter = action.payload
+        },
     }
 })
 
-export const { setUser, setCart, setProducts } = UserSlice.actions;
+export const { setUser, setCart, setProducts, setFilter } = UserSlice.actions;
 
 export default UserSlice.reducer;

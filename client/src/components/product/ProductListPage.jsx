@@ -38,7 +38,6 @@ export function ParoductButton({ product }) {
     const cart = useSelector(state => state.user.cart);
     const role = useSelector(state => state.user.role);
     const userId = useSelector(state => state.user.user_id);
-    console.log("cart: ", cart);
     const isInCart = cart && cart.some(item => item.productId === product._id);
     const [quantity, setQuantity] = React.useState(0);
     const dispatch = useDispatch();
@@ -87,7 +86,6 @@ export function ParoductButton({ product }) {
     </CardActions>
 }
 const ProductListPage = ({ productsData }) => {
-    console.log("productsData: ", productsData);
     return (
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 15, md: 25 }}
         >

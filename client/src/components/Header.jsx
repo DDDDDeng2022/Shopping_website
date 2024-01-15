@@ -10,16 +10,17 @@ import Cart from "./cart/CartDialog";
 import { useDispatch, useSelector } from "react-redux";
 import apiCall from "../services/apiCall";
 import { setIsLogin } from "../redux/loginStateSlice";
-
-/**
- * todo:
- * 1、management和chuwa使用的component有待更改，使其贴近上下错位分布
- * 2、关于searchBar可以考虑能否使用Grid去进行调整
- */
+import { setFilter } from "../redux/userSlice"
 
 export const SearchBar = (props) => {
-    const { isSearchWrap, searchInput, serSearchInput } = props;
-
+    const { isSearchWrap, searchInput, setSearchInput } = props;
+    const dispatch = useDispatch();
+    const handleChange = (e) => {
+        setSearchInput(e.target.value);
+        if (e.target.value) {
+            dispatch(setFilter(""));
+        }
+    }
     return (
         <FormControl
             sx={{
@@ -40,13 +41,11 @@ export const SearchBar = (props) => {
                 size="small"
                 placeholder="Search"
                 value={searchInput}
-                onChange={(e) => serSearchInput(e.target.value)}
+                onChange={handleChange}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
-                            onClick={() => {
-                                console.log("todo");
-                            }}
+                            onClick={() => dispatch(setFilter(searchInput))}
                             edge="end"
                         >
                             <SearchOutlinedIcon sx={{
@@ -85,8 +84,6 @@ export default function Header() {
     const handleOpenCartDialog = () => {
         setOpenCartDialog(!openCartDialog);
     }
-
-
     return (
         <AppBar position="static" sx={{ backgroundColor: "#101827" }}>
             <Toolbar sx={{ minHeight: { xs: "30px", sm: "60px" } }} >

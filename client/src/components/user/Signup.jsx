@@ -1,11 +1,9 @@
-import { Button, Typography, FormControlLabel, Switch } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Button, Typography, FormControlLabel, Switch, Grid } from "@mui/material";
 import PasswordBar from "./PasswordBar";
 import EmailBar from "./EmailBar";
 import OuterBox from "./OuterBox";
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from "react";
 import { setIsLogin } from "../../redux/loginStateSlice";
 import apiCall from "../../services/apiCall"
@@ -17,7 +15,7 @@ export default function SignupPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleSignUp = () => {
-        const response = apiCall({ url: '/api/auth/signup', method: 'POST', data: {email, password, role: signUpAsAdmin ? 'Admin': 'User'} });
+        const response = apiCall({ url: '/api/auth/signup', method: 'POST', data: { email, password, role: signUpAsAdmin ? 'Admin' : 'User' } });
         if (response) {
             dispatch(setIsLogin(true));
             localStorage.setItem('token', response.token);
@@ -54,8 +52,8 @@ export default function SignupPage() {
                         </Link>
                     </Typography>
                 </Grid>
-                <Grid item xs={4} sm={6} sx={{display: "flex", justifyContent: "flex-end"}} >
-                    <FormControlLabel control={<Switch color="secondary" onChange={handleSignUpAsAdmin} />} 
+                <Grid item xs={4} sm={6} sx={{ display: "flex", justifyContent: "flex-end" }} >
+                    <FormControlLabel control={<Switch color="secondary" onChange={handleSignUpAsAdmin} />}
                         label="Admin Signup" />
                 </Grid>
             </Grid>

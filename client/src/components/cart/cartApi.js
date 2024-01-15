@@ -1,4 +1,4 @@
-const CART_URL = 'http://localhost:3000/api/cart/user'; // 替换成你的API URL
+const CART_URL = 'http://localhost:3000/api/cart/user';
 
 export const updateCart = async (userId, productId, type) => {
     try {

@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { ButtonGroup, Tooltip } from '@mui/material';
+import { ButtonGroup, Tooltip, Typography, Button } from '@mui/material';
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import { FlexedBox } from './cartStyle';

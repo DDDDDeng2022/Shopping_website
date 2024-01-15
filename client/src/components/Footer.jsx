@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from "react"
 import { AppBar, IconButton, Typography, Button, Link, Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -5,11 +6,6 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Grid from "@mui/material/Unstable_Grid2";
 import CloseIcon from '@mui/icons-material/Close';
-
-/*
-todo ：
-    字体及相关样式尽量贴近figma
-*/
 
 const LINKS = ["Contact us", "Privacy Policies", "Help"];
 
@@ -166,7 +162,7 @@ const LinkDialog = (props) => {
             </IconButton>
             <DialogContent>
                 <DialogContentText>
-                    Reminder: This is a link to "{text}" page.
+                    Reminder: This is a link to &quot;{text}&quot; page.
                 </DialogContentText>
             </DialogContent>
         </Dialog>

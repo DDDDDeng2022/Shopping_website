@@ -7,7 +7,6 @@ async function getCategories() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const categories = await response.json();
-        console.log("categories api: ", categories);
         return categories;
     } catch (error) {
         console.error('Error:', error);

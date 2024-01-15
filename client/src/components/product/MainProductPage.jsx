@@ -22,6 +22,8 @@ function MainProductPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const role = useSelector(state => state.user.role);
+    const filter = useSelector(state => state.user.filter);
+    const products = useSelector(state => state.user.products);
 
     React.useEffect(() => {
         setLoading(true);
@@ -38,8 +40,12 @@ function MainProductPage() {
     }, []);
 
     React.useEffect(() => {
-        const data = [...productData];
-        console.log("rank changed", rank);
+        let data = [...products];
+        if (filter != "") {
+            data = products.filter(product =>
+                product.name.toLowerCase().includes(filter.toLowerCase())
+            );
+        }
         if (rank === 0) {
             data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         } else if (rank === 2) {
@@ -51,7 +57,7 @@ function MainProductPage() {
         setProductData(data);
         setCurPage(1);
         setCurPageProductsData(data.slice(0, 10));
-    }, [rank]);
+    }, [rank, filter]);
 
     const handlePageChange = (e, value) => {
         setCurPage(value);

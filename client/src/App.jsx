@@ -14,12 +14,6 @@ import store from '../src/redux/store'
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./App.css";
 
-/**
- * todo:
- * 1、添加一个isLogin的状态，并传给Header，初始化为false
- * 2、创建一个callback function，用来给子组件修改isLogin的值，据情况而定，如果传递层数过多可以考虑使用redux或useContext
- */
-
 function App() {
   const primaryTheme = createTheme({
     palette: {
