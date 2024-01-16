@@ -2,7 +2,6 @@ import Box from "@mui/system/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import "./dialog.css";
 
 // eslint-disable-next-line react/prop-types

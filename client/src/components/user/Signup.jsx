@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Typography, FormControlLabel, Switch, Grid } from "@mui/material";
 import PasswordBar from "./PasswordBar";
 import EmailBar from "./EmailBar";
@@ -7,6 +8,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState } from "react";
 import { setIsLogin } from "../../redux/loginStateSlice";
 import apiCall from "../../services/apiCall"
+import AlertDialog from './AlertDialog';
+import { EMAIL_REGEX } from './EmailBar';
+import { PASSWORD_REGEX } from './PasswordBar';
 
 export default function SignupPage() {
     const [signUpAsAdmin, setSignUpAsAdmin] = useState(false);
@@ -14,15 +18,34 @@ export default function SignupPage() {
     const password = useSelector((state) => state.emailPsw.password);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
+    const [alertText, setAlertText] = React.useState();
+    const handleAlertClose = () => {
+        setOpenAlertDialog(false);
+        setAlertText(null);
+    }
     const handleSignUp = () => {
-        const response = apiCall({ url: '/api/auth/signup', method: 'POST', data: { email, password, role: signUpAsAdmin ? 'Admin' : 'User' } });
-        if (response) {
-            dispatch(setIsLogin(true));
-            localStorage.setItem('token', response.token);
-        } else {
-            console.error('Email or Password is wrong');
+        if (email === "" || password === "" || !email.match(EMAIL_REGEX) || !password.match(PASSWORD_REGEX)) {
+            setAlertText(`Invalid Email or Password!`);
+            setOpenAlertDialog(true);
         }
-        navigate(`/`);
+        else {
+            try {
+                const response = apiCall({ url: '/api/auth/signup', method: 'POST', data: { email, password, role: signUpAsAdmin ? 'Admin' : 'User' } });
+                if (response.status === 201) {
+                    dispatch(setIsLogin(true));
+                    localStorage.setItem('token', response.token);
+                    navigate(`/`);
+                }
+                else {
+                    navigate('/error')
+                }
+            } catch (error) {
+                console.error('Login error: ', error);
+                alert(`An error occurred: ${error.message || 'Unknown error'}`);
+            }
+        }
+
     };
     const handleSignUpAsAdmin = () => {
         setSignUpAsAdmin(true);
@@ -57,6 +80,7 @@ export default function SignupPage() {
                         label="Admin Signup" />
                 </Grid>
             </Grid>
+            <AlertDialog text={alertText} openAlertDialog={openAlertDialog} handleAlertClose={handleAlertClose} />
         </OuterBox>
     );
 }

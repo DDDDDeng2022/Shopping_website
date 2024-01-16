@@ -8,11 +8,18 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { useNavigate } from 'react-router-dom';
 import { productEditTheme, Div, VisuallyHiddenInput } from './styledFile/productEditStyle';
 import { getCategories } from './categoryApi';
+import apiCall from '../../services/apiCall';
+import { setUser, setCart, setProducts } from '../../redux/userSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from './productApi';
+import { updateCart } from '../cart/cartApi';
 
 export function ProductEdit() {
     const location = useLocation();
     const product = location.state?.product;
     const type = product ? "save" : "addProduct";
+    const userId = useSelector(state => state.user.user_id);
+    const cart = useSelector(state => state.user.cart);
     const [productName, setProductName] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [category, setCategory] = React.useState("");
@@ -22,6 +29,8 @@ export function ProductEdit() {
     const [loading, setLoading] = React.useState(false);
     const [showError, setShowError] = React.useState(false);
     const [categories, setCategories] = React.useState([{ id: "", name: "" }]);
+    const dispatch = useDispatch();
+
     const findCategoryById = (categories, id) => {
         const category = categories.find(category => category.id.toString() === id);
         return category ? { id: id, name: category.name } : null;
@@ -49,7 +58,6 @@ export function ProductEdit() {
         };
         fetchCategories();
     }, [])
-
     const handleSubmit = async () => {
         if (productName === "" || price === "" || quantity === "" || photoLink === "http://") {
             setShowError(true);
@@ -68,6 +76,17 @@ export function ProductEdit() {
             setLoading(true);
             if (type === "save") {
                 await updateProduct(product._id, newProductData);
+                getProducts()
+                    .then(products => {
+                        apiCall({ url: `/api/user/${userId}`, method: 'GET' }).then((user) => {
+                            dispatch(setUser({ id: user.user_id, name: user.user_name, role: user.role, cart: user.cart }));
+                            dispatch(setProducts(products));
+                            dispatch(setCart(user.cart));
+                        })
+                    })
+                    .catch(err => {
+                        console.error('Error:', err);
+                    });
             }
             else {
                 await addProduct(newProductData);
@@ -95,8 +114,23 @@ export function ProductEdit() {
     const handleDelete = async () => {
         try {
             alert(`product ${productName}: ${product._id}will be deleted.`)
+            getProducts()
+                .then(products => {
+                    apiCall({ url: `/api/user/${userId}`, method: 'GET' })
+                        .then(async (user) => {
+                            await updateCart(userId, product._id, "remove");
+                            dispatch(setUser({ id: user.user_id, name: user.user_name, role: user.role, cart: user.cart }));
+                            dispatch(setProducts(products));
+                            if (cart.some(item => item.productId === product._id)) {
+                                const newCart = await updateCart(userId, product._id, "remove");
+                                dispatch(setCart(newCart));
+                            }
+                        })
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                });
             await deleteProduct(product._id);
-            console.log("delete successfully");
             navigate(`/`);
         } catch (err) {
             console.error('delete failed:', err);
@@ -108,22 +142,12 @@ export function ProductEdit() {
             fontFamily: "sans-serif",
             fontWeight: "600",
             marginBottom: "20px",
-            fontSize: {
-                xs: "25px",
-                sm: "30px"
-            },
-            width: {
-                xs: "100%",
-                sm: "50%"
-            },
+            fontSize: { xs: "25px", sm: "30px" },
+            width: { xs: "100%", sm: "50%" },
             minWidth: "400px",
             maxWidth: "600px",
-            textAlign: {
-                xs: "center",
-                sm: "left"
-            }
+            textAlign: { xs: "center", sm: "left" }
         }}>
-
             {product ? "Edit Product" : "Create Product"}
         </Box>
         <ThemeProvider theme={productEditTheme}>

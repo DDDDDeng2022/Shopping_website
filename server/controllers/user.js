@@ -2,8 +2,9 @@ import User from "../db/models/user.js";
 
 const getUserById = async (req, res) => {
     try {
-        const user = await User.findById(req.params?.id);
-        res.status(200).json(user);
+        await User.findById(req.params?.id).populate('role').then((user) => {
+            res.status(200).json({ user_id: user._id, user_name: user.name, role: user.role, cart: user.cart });
+        });
     } catch (err) {
         res.status(500).json({ message: 'Server Error' });
     }

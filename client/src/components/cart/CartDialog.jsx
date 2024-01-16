@@ -98,6 +98,7 @@ export default function CartDialog(props) {
                                 <Box sx={{ display: "flex", gap: "20px", alignItems: "center", marginTop: "10px", }}>
                                     <FormControl sx={{ width: "100%" }}>
                                         <TextField
+                                            value={coupon}
                                             onChange={(e) => { setCoupon(e.target.value) }}
                                             placeholder="promotion code"
                                             type="text"

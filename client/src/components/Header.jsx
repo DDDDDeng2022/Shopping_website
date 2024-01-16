@@ -1,65 +1,15 @@
-/* eslint-disable react/prop-types */
-import { AppBar, Tooltip, Box, Toolbar, IconButton, Typography, Badge, OutlinedInput, InputAdornment, FormControl } from "@mui/material";
+import { AppBar, Tooltip, Box, Toolbar, IconButton, Typography, Badge } from "@mui/material";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Cart from "./cart/CartDialog";
+import SearchBar from "./SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import apiCall from "../services/apiCall";
 import { setIsLogin } from "../redux/loginStateSlice";
 import { resetUser, setUser } from "../redux/userSlice";
-
-export const SearchBar = (props) => {
-    const { isSearchWrap, searchInput, setSearchInput } = props;
-    const dispatch = useDispatch();
-    const handleChange = (e) => {
-        setSearchInput(e.target.value);
-        if (e.target.value) {
-            dispatch(setFilter(""));
-        }
-    }
-    return (
-        <FormControl
-            sx={{
-                flexGrow: 1,
-                display: { xs: isSearchWrap ? "block" : "none", sm: isSearchWrap ? "none" : "block" },
-            }}
-        >
-            <OutlinedInput
-                sx={{
-                    backgroundColor: "white", width: "100%", color: "grey",
-                    '& .MuiInputBase-input': {
-                        padding: { xs: "5px", sm: "10px" },
-                        fontSize: { xs: "15px", sm: "20px" }
-                    }
-                }}
-                id="search"
-                type={"text"}
-                size="small"
-                placeholder="Search"
-                value={searchInput}
-                onChange={handleChange}
-                endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            onClick={() => dispatch(setFilter(searchInput))}
-                            edge="end"
-                        >
-                            <SearchOutlinedIcon sx={{
-                                color: "grey",
-                                fontSize: { xs: "20px", sm: "30px" }
-                            }} />
-                        </IconButton>
-                    </InputAdornment>
-                }
-            />
-        </FormControl>
-    );
-};
-
 
 export default function Header() {
     const [openCartDialog, setOpenCartDialog] = useState(false);
@@ -78,13 +28,13 @@ export default function Header() {
             navigate("/signin");
         }
     };
-      useEffect(() => {
+    useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
-            apiCall({ url: '/api/auth/checkLogin', method: 'POST', data: {token: storedToken} }).then((response) => {
+            apiCall({ url: '/api/auth/checkLogin', method: 'POST', data: { token: storedToken } }).then((response) => {
                 if (response) {
                     dispatch(setIsLogin(true));
-                    dispatch(setUser(response));
+                    dispatch(setUser({ id: response.user_id, name: response.user_name, role: response.role, cart: response.cart }));
                 }
             });
         }

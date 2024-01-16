@@ -14,7 +14,8 @@ const checkLogin = async (req, res) => {
 
         if (!isTokenExpired) {
             await User.findById(decoded?.id).populate('role').then((user) => {
-                res.status(200).json({ name: user.name, role: user.role, cart: user.cart })
+                res.status(200).json({ user_id: user._id, user_name: user.name, role: user.role, cart: user.cart });
+
             });
         } else {
             res.status(401).json({ message: 'Token expired' })
@@ -53,7 +54,7 @@ const signup = async (req, res) => {
             res.status(400).json({ message: "Please provide required fields" });
         }
         await user.save().then(u => {
-            res.status(201).json(user)
+            res.status(201).json(u)
         });
     } catch (err) {
         res.status(500).json({ err, message: 'Server Error' });

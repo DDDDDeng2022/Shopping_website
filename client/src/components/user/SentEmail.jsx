@@ -14,7 +14,6 @@ export default function SentEmailPage() {
         }, 2000);
         return () => clearTimeout(timeoutId);
     }, [navigate]);
-
     return (
         <OuterBox>
             <div className="emailIcon">
