@@ -52,10 +52,11 @@ const signup = async (req, res) => {
         const user = new User({ ...create_user_data, role });
         if (!user.name || !user.email || !user.password) {
             res.status(400).json({ message: "Please provide required fields" });
+        } else {
+            await user.save().then(u => {
+                res.status(201).json(u)
+            });
         }
-        await user.save().then(u => {
-            res.status(201).json(u)
-        });
     } catch (err) {
         res.status(500).json({ err, message: 'Server Error' });
     }
