@@ -2,7 +2,7 @@
 import { Card, CardContent, CardMedia, Typography, Grid, Box, Skeleton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { StyledTypography } from './styledFile/productListPageStyle';
-import ProductButton from './ParoductButton';
+import ProductButton from './ProductButton';
 
 function ProductItem({ product }) {
     const navigate = useNavigate();

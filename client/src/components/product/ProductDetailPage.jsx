@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Chip, Typography, Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import ProductButton from './ParoductButton';
+import ProductButton from './ProductButton';
 import { Img, StyledTypography } from './styledFile/detailedProductPageStyle';
 import { getProductById } from './productApi';
 import "../../App.css"

@@ -58,7 +58,10 @@ export default function ProductButton({ product }) {
             </StyledBox>
             : <Button fullWidth sx={{
                 backgroundColor: "#5048E5",
-                color: "white"
+                color: "white",
+                ':hover': {
+                    backgroundColor: '#0b048c',
+                }
             }}
                 onClick={(e) => handleUpdate(e, "add")}>Add </Button>
         }
