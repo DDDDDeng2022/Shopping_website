@@ -5,8 +5,6 @@ const formatCart = (cart) => {
         acc[id] = (acc[id] || 0) + 1;
         return acc;
     }, {});
-
-    // 将计数结果转换为所需格式的数组
     return Object.keys(countMap).map(productId => ({
         productId: productId,
         amount: countMap[productId]
@@ -14,7 +12,6 @@ const formatCart = (cart) => {
 };
 
 const calculateTotalAmount = (cart, products) => {
-
     const formatedCart = formatCart(cart);
     return formatedCart.reduce((total, cartItem) => {
         const product = products.find(p => p._id === cartItem.productId);
@@ -57,14 +54,20 @@ export const UserSlice = createSlice({
         setFilter: (state, action) => {
             state.filter = action.payload
         },
-       resetUser: (state, action) => {
-            state.user_name = '',
-            state.role = '',
-            state.cart = []
+        resetUser: (state) => {
+            return {
+                user_id: '',
+                user_name: '',
+                role: '',
+                cart: [],
+                cartTotal: { quantity: 0, amount: 0 },
+                products: [],
+                filter: ""
+            };
         }
     }
-})
+});
 
-export const { setUser, setCart, setProducts, setFilter,resetUser } = UserSlice.actions;
+export const { setUser, setCart, setProducts, setFilter, resetUser } = UserSlice.actions;
 
 export default UserSlice.reducer;

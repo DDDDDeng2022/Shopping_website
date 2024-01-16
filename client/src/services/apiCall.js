@@ -1,7 +1,7 @@
 
 const BASE_URL = 'http://localhost:3000'
 
-export default async function apiCall ({ url: apiUrl, method, data }) {
+export default async function apiCall({ url: apiUrl, method, data }) {
     const url = new URL(apiUrl, BASE_URL).href;
     const default_header = {
         'Content-Type': 'application/json'
@@ -25,5 +25,8 @@ export default async function apiCall ({ url: apiUrl, method, data }) {
     //     throw new Error(error.message);
     // }
     const result = await response.json();
-    return result;
+    return {
+        status: response.status,
+        ...result
+    };
 }

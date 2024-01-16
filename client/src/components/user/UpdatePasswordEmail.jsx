@@ -14,7 +14,6 @@ export default function UpdatePasswordPage() {
     const navigate = useNavigate();
     const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
     const [alertText, setAlertText] = React.useState();
-
     const handleAlertClose = () => {
         setOpenAlertDialog(false);
         setAlertText(null);

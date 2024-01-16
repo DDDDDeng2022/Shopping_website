@@ -9,8 +9,6 @@ import {
     uploadPhoto
 } from '../controllers/product.js';
 
-// todo:后续还需要管理员授权认证等
-
 const router = express.Router();
 
 // 设置 multer

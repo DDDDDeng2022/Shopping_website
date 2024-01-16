@@ -11,6 +11,7 @@ import { menuTheme, StyledPagination, StyledFormControl, StyledSelect } from './
 import { getProducts } from './productApi';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProducts } from "../../redux/userSlice";
+import SearchIcon from '@mui/icons-material/Search';
 
 const OPTIONS = ["Last added", "Price: low to high", "Price: high to low"]
 function MainProductPage() {
@@ -111,30 +112,38 @@ function MainProductPage() {
                 </Grid>
             </div>
             {/* main */}
-            <div style={{ flex: "1", backgroundColor: "white", padding: "20px", overflowY: "auto", margin: "20px 0" }}>
-                {!loading ?
-                    <ProductListPage productsData={curPageProductsData} />
+            {
+                productData.length === 0 ?
+                    <div style={{ display: "flex", flexDirection: "column", gap: "20", justifyContent: "center", alignItems: "center" }}>
+                        <SearchIcon />
+                        No results for {filter}
+                    </div>
                     :
-                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 15, md: 25 }}>
-                        {Array.from(Array(10)).map((_, index) => (
-                            <Grid item xs={10} sm={5} md={5} key={index}>
-                                <Box key={index} sx={{ marginRight: 0.5, my: 5, backgroundColor: "#f9fafb" }}>
-                                    <Skeleton variant="rectangular" height={130} sx={{ backgroundColor: "#ccc" }} />
-                                    <Box sx={{ pt: 0.5 }}>
-                                        <Skeleton sx={{ backgroundColor: "#ccc" }} />
-                                        <Skeleton width="60%" sx={{ backgroundColor: "#ccc" }} />
-                                    </Box>
-                                </Box>
-                            </Grid>))}
-                    </Grid>
-                }
-            </div>
+                    <div style={{ flex: "1", backgroundColor: "white", padding: "20px", overflowY: "auto", margin: "20px 0" }}>
+                        {!loading ?
+                            <ProductListPage productsData={curPageProductsData} />
+                            :
+                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 10, sm: 15, md: 25 }}>
+                                {Array.from(Array(10)).map((_, index) => (
+                                    <Grid item xs={10} sm={5} md={5} key={index}>
+                                        <Box key={index} sx={{ marginRight: 0.5, my: 5, backgroundColor: "#f9fafb" }}>
+                                            <Skeleton variant="rectangular" height={130} sx={{ backgroundColor: "#ccc" }} />
+                                            <Box sx={{ pt: 0.5 }}>
+                                                <Skeleton sx={{ backgroundColor: "#ccc" }} />
+                                                <Skeleton width="60%" sx={{ backgroundColor: "#ccc" }} />
+                                            </Box>
+                                        </Box>
+                                    </Grid>))}
+                            </Grid>
+                        }
+                    </div>
+            }
             {/* pagination */}
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            {productData.length > 0 && <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <StyledPagination count={Math.ceil(productData.length / 10)} shape="rounded" color="primary"
                     page={curPage}
                     onChange={handlePageChange} />
-            </div>
+            </div>}
         </div >
 
     )

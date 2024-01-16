@@ -7,7 +7,7 @@ import { setPassword } from "../../redux/EmailPswSlice";
 import './dialog.css';
 
 // This regex means at least 1 lowercase, at least 1 uppercase, at least 1 digits(number), and no space at least 8 characters
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$/;
+export const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$/;
 
 // eslint-disable-next-line react/prop-types
 const PasswordBar = ({ type }) => {

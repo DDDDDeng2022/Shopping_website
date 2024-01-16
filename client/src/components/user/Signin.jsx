@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Typography, Grid } from "@mui/material";
 import PasswordBar from "./PasswordBar";
 import OuterBox from "./OuterBox";
@@ -7,25 +8,37 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setIsLogin } from "../../redux/loginStateSlice";
 import apiCall from "../../services/apiCall"
 import { setUser } from "../../redux/userSlice";
+import AlertDialog from "./AlertDialog";
 
 export default function SigninPage() {
+    const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
+    const [alertText, setAlertText] = React.useState();
     const dispatch = useDispatch();
     const email = useSelector((state) => state.emailPsw.email);
     const password = useSelector((state) => state.emailPsw.password);
     const navigate = useNavigate();
+    const handleAlertClose = () => {
+        setOpenAlertDialog(false);
+        setAlertText(null);
+    };
     const handleSignIn = async () => {
-        await apiCall({ url: '/api/auth/login', method: 'POST', data: {email, password}}).then((response) => {
-            if (response) {
+        try {
+            const response = await apiCall({ url: '/api/auth/login', method: 'POST', data: { email, password } });
+            if (response.status === 201) {
                 dispatch(setIsLogin(true));
-                dispatch(setUser({ name: response.name, role: response.role, cart: response.cart }));
+                dispatch(setUser({ id: response.user_id, name: response.user_name, role: response.role, cart: response.cart }));
                 localStorage.setItem('token', response.token);
                 navigate(`/`);
             } else {
-                console.error('Email or Password is wrong');
-                alert(`An error occured: ${response.message}`)
+                setAlertText(`Email or Password is wrong!`);
+                setOpenAlertDialog(true);
             }
-        })
+        } catch (error) {
+            console.error('Login error: ', error);
+            alert(`An error occurred: ${error.message || 'Unknown error'}`);
+        }
     };
+
     return (
         <OuterBox>
             <Typography sx={{ fontSize: { xs: "24px", sm: "34px" }, fontWeight: "700" }}>
@@ -51,6 +64,7 @@ export default function SigninPage() {
                     </Link>
                 </Grid>
             </Grid>
+            <AlertDialog text={alertText} openAlertDialog={openAlertDialog} handleAlertClose={handleAlertClose} />
         </OuterBox>
     );
 }
