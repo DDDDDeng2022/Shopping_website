@@ -1,0 +1,8 @@
+[{
+  "name": "Admin",
+  "description": "Admin could list products and sell"
+},
+{
+  "name": "User",
+  "description": "User could only purchase products"
+}]

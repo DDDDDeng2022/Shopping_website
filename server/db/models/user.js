@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "ShippingAddress"
     },
+    products: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Product"
+    }],
     orders: [{
         type: mongoose.Types.ObjectId,
         ref: "Order"

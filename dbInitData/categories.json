@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "65a47446b51934062d8a1b32"
+  },
+  "name": "toy",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a47748fadf6ab750f6d9f3"
+  },
+  "name": "digital-product",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a47758fadf6ab750f6d9f5"
+  },
+  "name": "skincare",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a47765fadf6ab750f6d9f7"
+  },
+  "name": "fashion",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a47774fadf6ab750f6d9f9"
+  },
+  "name": "healthcare",
+  "__v": 0
+}]
