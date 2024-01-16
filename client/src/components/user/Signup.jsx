@@ -11,6 +11,7 @@ import apiCall from "../../services/apiCall"
 import AlertDialog from './AlertDialog';
 import { EMAIL_REGEX } from './EmailBar';
 import { PASSWORD_REGEX } from './PasswordBar';
+import { setUser } from "../../redux/userSlice";
 
 export default function SignupPage() {
     const [signUpAsAdmin, setSignUpAsAdmin] = useState(false);
@@ -32,9 +33,9 @@ export default function SignupPage() {
         else {
             try {
                 apiCall({ url: '/api/auth/signup', method: 'POST', data: { email, password, role: signUpAsAdmin ? 'Admin' : 'User' } }).then((response) => {
-                    console.log(response);
                     if (response.status === 201) {
                         dispatch(setIsLogin(true));
+                        dispatch(setUser({ id: response.user_id, name: response.user_name, role: response.role, cart: response.cart }));
                         localStorage.setItem('token', response.token);
                         navigate(`/`);
                     }

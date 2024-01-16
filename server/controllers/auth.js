@@ -53,8 +53,9 @@ const signup = async (req, res) => {
         if (!user.name || !user.email || !user.password) {
             res.status(400).json({ message: "Please provide required fields" });
         } else {
-            await user.save().then(u => {
-                res.status(201).json(u)
+            const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '3d' });
+            await user.save().then(user => {
+                res.status(201).json({ user_id: user._id, user_name: user.name, role: user.role, cart: user.cart, token });
             });
         }
     } catch (err) {
