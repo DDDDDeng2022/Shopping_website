@@ -1,0 +1,178 @@
+[{
+  "_id": {
+    "$oid": "64c236ae26cf851a9e4ab459"
+  },
+  "email": "Merchant1@gmail.com",
+  "password": "merchant123",
+  "products": [
+    {
+      "$oid": "64c78e2b94730e45a288b41e"
+    }
+  ],
+  "cart": [],
+  "__v": 0,
+  "name": "Merchant1"
+},
+{
+  "_id": {
+    "$oid": "64c393b5a67765b28f87383a"
+  },
+  "email": "Merchant2@gmail.com",
+  "password": "merchant123",
+  "products": [
+    {
+      "$oid": "64c5e0eda433ba47ddce80f8"
+    },
+    {
+      "$oid": "64c5dd4fa433ba47ddce80ec"
+    }
+  ],
+  "cart": [],
+  "__v": 0,
+  "name": "Merchant2"
+},
+{
+  "_id": {
+    "$oid": "64c896cad17b235d4bb80808"
+  },
+  "email": "Chuwa@gmail.com",
+  "password": "chuwa123",
+  "products": [
+    {
+      "$oid": "64d7b1590163c8548c69dc41"
+    },
+    {
+      "$oid": "64d1b964b4fef8c552b176b9"
+    },
+    {
+      "$oid": "64cdc2b98d97f6fb1edde91d"
+    },
+    {
+      "$oid": "64cdc2908d97f6fb1edde903"
+    },
+    {
+      "$oid": "64cb781692cd92262dfd7613"
+    }
+  ],
+  "cart": [],
+  "__v": 0,
+  "name": "Chuwa",
+  "role": {
+    "$oid": "65a26e02a2a20ae4f6928ed5"
+  }
+},
+{
+  "_id": {
+    "$oid": "64d1aac8b4fef8c552b1749b"
+  },
+  "email": "Qingyu@gmail.com",
+  "password": "qingyu123",
+  "products": [
+    {
+      "$oid": "64bcacc56f0a17edbfc43ba3"
+    },
+    {
+      "$oid": "64bcae2a599387cfb81c4116"
+    },
+    {
+      "$oid": "64bcae8fe96bdebdc77651c4"
+    },
+    {
+      "$oid": "64bcaecea43445878a6cd603"
+    }
+  ],
+  "cart": [
+    {
+      "$oid": "64bcacc56f0a17edbfc43233"
+    },
+    {
+      "$oid": "64bcacc56f0a17edbfc43239"
+    }
+  ],
+  "__v": 88,
+  "name": "Qingyu",
+  "orders": [],
+  "signup_at": {
+    "$date": "2024-01-14T08:27:07.835Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T08:27:07.835Z"
+  },
+  "role": {
+    "$oid": "65a26e02a2a20ae4f6928ed5"
+  }
+},
+{
+  "_id": {
+    "$oid": "65a33634e915f5d229fa58bf"
+  },
+  "email": "Bei@gmail.com",
+  "password": "bei123",
+  "products": [
+    {
+      "$oid": "64bcaf2ff3f5f84095e18c78"
+    },
+    {
+      "$oid": "64be09e583ccfd58eeb2a492"
+    },
+    {
+      "$oid": "64be09f483ccfd58eeb2a498"
+    },
+    {
+      "$oid": "64c19e9046789768c9804c61"
+    }
+  ],
+  "cart": [],
+  "__v": 0,
+  "name": "Bei",
+  "role": {
+    "$oid": "65a26e02a2a20ae4f6928ed5"
+  }
+},
+{
+  "_id": {
+    "$oid": "64d82462fb1ddc9a81dcaea4"
+  },
+  "email": "3333@gmail.com",
+  "password": "$2b$10$Xi0XDDW9kFr3GYbIX3czReaUFh89LSdgQuXV7gEDL9GaQ9i4GjgtS",
+  "products": [
+    {
+      "$oid": "64d829adfb1ddc9a81dcaed7"
+    }
+  ],
+  "cart": [],
+  "__v": 3
+},
+{
+  "_id": {
+    "$oid": "64d1bb9acad8939eadbad567"
+  },
+  "email": "hanyu@gmail.com",
+  "password": "$2b$10$4C/lXvUtWEZiHBftcgArfuv.HOOpvCusEJWQlLH6cetwe5KQV2JKO",
+  "products": [
+    {
+      "$oid": "64d82a10fb1ddc9a81dcaef7"
+    }
+  ],
+  "cart": [
+    {
+      "$oid": "64d1b964b4fef8c552b176b9"
+    },
+    {
+      "$oid": "64d1b964b4fef8c552b176b9"
+    },
+    {
+      "$oid": "64c5dd4fa433ba47ddce80ec"
+    },
+    {
+      "$oid": "64d7b3150163c8548c69dca8"
+    },
+    {
+      "$oid": "64c5dd4fa433ba47ddce80ec"
+    },
+    {
+      "$oid": "64d7b3150163c8548c69dca8"
+    }
+  ],
+  "__v": 45
+}]
