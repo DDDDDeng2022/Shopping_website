@@ -113,7 +113,7 @@ function MainProductPage() {
             </div>
             {/* main */}
             {
-                productData.length === 0 ?
+                productData.length === 0 && filter !== "" ?
                     <div style={{ display: "flex", flexDirection: "column", gap: "20", justifyContent: "center", alignItems: "center" }}>
                         <SearchIcon />
                         No results for {filter}

@@ -12,7 +12,6 @@ export const StyledBox = styled(Box)({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "lightblue",
     borderRadius: '4px'
 
 });
