@@ -9,7 +9,8 @@ import { setIsLogin } from "../../redux/loginStateSlice";
 import apiCall from "../../services/apiCall"
 import { setUser } from "../../redux/userSlice";
 import AlertDialog from "./AlertDialog";
-
+import { EMAIL_REGEX } from './EmailBar';
+import { PASSWORD_REGEX } from './PasswordBar';
 export default function SigninPage() {
     const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
     const [alertText, setAlertText] = React.useState();
@@ -22,21 +23,29 @@ export default function SigninPage() {
         setAlertText(null);
     };
     const handleSignIn = async () => {
-        try {
-            await apiCall({ url: '/api/auth/login', method: 'POST', data: { email, password } }).then(response => {
-                if (response.status === 201) {
-                    dispatch(setIsLogin(true));
-                    dispatch(setUser({ id: response.user_id, name: response.user_name, role: response.role, cart: response.cart }));
-                    localStorage.setItem('token', response.token);
-                    navigate(`/`);
-                } else {
-                    setAlertText(`Email or Password is wrong!`);
-                    setOpenAlertDialog(true);
-                }
-            });
-        } catch (error) {
-            console.error('Login error: ', error);
-            alert(`An error occurred: ${error.message || 'Unknown error'}`);
+        if (email === "" || password === "" || !email.match(EMAIL_REGEX) || !password.match(PASSWORD_REGEX)) {
+            setAlertText(`Invalid Email or Password!`);
+            setOpenAlertDialog(true);
+        }
+        else {
+            try {
+                await apiCall({ url: '/api/auth/login', method: 'POST', data: { email, password } }).then(response => {
+                    if (response.status === 201) {
+                        dispatch(setIsLogin(true));
+                        dispatch(setUser({ id: response.user_id, name: response.user_name, role: response.role, cart: response.cart }));
+                        localStorage.setItem('token', response.token);
+                        navigate(`/`);
+                    } else {
+
+                        setAlertText(`Email or Password is wrong!`);
+                        setOpenAlertDialog(true);
+                    }
+                });
+            } catch (error) {
+                console.error('Login error: ', error);
+                alert(`An error occurred: ${error.message || 'Unknown error'}`);
+            }
+
         }
     };
 

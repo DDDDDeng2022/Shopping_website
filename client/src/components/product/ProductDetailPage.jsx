@@ -4,20 +4,51 @@ import { useParams } from 'react-router-dom';
 import ProductButton from './ProductButton';
 import { Img, StyledTypography } from './styledFile/detailedProductPageStyle';
 import { getProductById } from './productApi';
+import { getCategory } from './categoryApi';
 import "../../App.css"
 
 function ProductDetailPage() {
     let { id } = useParams();
     const [product, setProduct] = React.useState(null);
+    const [category, setCategory] = React.useState("");
     React.useEffect(() => {
-        getProductById(id)
-            .then(data => {
-                setProduct(data);
-            })
-            .catch(err => {
+        let isMounted = true;
+        const fetchProductData = async () => {
+            try {
+                const data = await getProductById(id);
+                if (isMounted) {
+                    setProduct(data);
+                    console.log("data.category", data.category);
+                    const categoryData = await getCategory(data.category);
+                    console.log("cccc: ", categoryData);
+                    setCategory(categoryData.name);
+                }
+            } catch (err) {
                 console.error('Error:', err);
-            });
+            }
+        };
+
+        fetchProductData();
+
+        return () => {
+            isMounted = false;
+        };
     }, [id]);
+
+    // React.useEffect(() => {
+    //     getProductById(id)
+    //         .then(data => {
+    //             setProduct(data);
+    //             getCategory(data.category)
+    //             .then(c => {
+    //                 console.log("cccc: ", c);
+    //                 setCategory(c.name);
+    //             })
+    //         })
+    //         .catch(err => {
+    //             console.error('Error:', err);
+    //         });
+    // }, [id]);
     return (
         <div className='content'>
             <Box sx={{
@@ -45,7 +76,7 @@ function ProductDetailPage() {
                     }}>
                     <Grid item>
                         <Typography variant="caption" sx={{ color: "#7d7d7d" }}>
-                            Category1
+                            {category}
                         </Typography>
                         <StyledTypography gutterBottom component="div" sx={{
                             color: "#5c5959",

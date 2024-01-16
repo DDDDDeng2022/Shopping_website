@@ -13,6 +13,7 @@ const formatCart = (cart) => {
 
 const calculateTotalAmount = (cart, products) => {
     const formatedCart = formatCart(cart);
+    console.log("products: ", products);
     return formatedCart.reduce((total, cartItem) => {
         const product = products.find(p => p._id === cartItem.productId);
         return total + (product ? product.price * cartItem.amount : 0);

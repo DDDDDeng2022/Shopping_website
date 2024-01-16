@@ -19,7 +19,6 @@ export default function ProductButton({ product }) {
     const isInCart = cart && cart.some(item => item.productId === product._id);
     const [quantity, setQuantity] = React.useState(0);
     const dispatch = useDispatch();
-
     useEffect(() => {
         const productInCart = cart.find(item => item.productId === product._id);
         const amount = productInCart ? productInCart.amount : 0;
@@ -61,7 +60,8 @@ export default function ProductButton({ product }) {
                 color: "white",
                 ':hover': {
                     backgroundColor: '#0b048c',
-                }
+                },
+                width: "120px"
             }}
                 onClick={(e) => handleUpdate(e, "add")}>Add </Button>
         }
