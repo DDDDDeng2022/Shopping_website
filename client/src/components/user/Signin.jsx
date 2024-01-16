@@ -15,7 +15,7 @@ export default function SigninPage() {
     const navigate = useNavigate();
     const handleSignIn = async () => {
         await apiCall({ url: '/api/auth/login', method: 'POST', data: {email, password}}).then((response) => {
-            if (response) {
+            if (response.user_id) {
                 dispatch(setIsLogin(true));
                 dispatch(setUser({ name: response.name, role: response.role, cart: response.cart }));
                 localStorage.setItem('token', response.token);
