@@ -12,43 +12,19 @@ function ProductDetailPage() {
     const [product, setProduct] = React.useState(null);
     const [category, setCategory] = React.useState("");
     React.useEffect(() => {
-        let isMounted = true;
-        const fetchProductData = async () => {
-            try {
-                const data = await getProductById(id);
-                if (isMounted) {
-                    setProduct(data);
-                    console.log("data.category", data.category);
-                    const categoryData = await getCategory(data.category);
-                    console.log("cccc: ", categoryData);
-                    setCategory(categoryData.name);
-                }
-            } catch (err) {
+        getProductById(id)
+            .then(data => {
+                setProduct(data);
+                getCategory(data.category)
+                    .then(c => {
+                        console.log("cccc: ", c);
+                        setCategory(c.name);
+                    })
+            })
+            .catch(err => {
                 console.error('Error:', err);
-            }
-        };
-
-        fetchProductData();
-
-        return () => {
-            isMounted = false;
-        };
+            });
     }, [id]);
-
-    // React.useEffect(() => {
-    //     getProductById(id)
-    //         .then(data => {
-    //             setProduct(data);
-    //             getCategory(data.category)
-    //             .then(c => {
-    //                 console.log("cccc: ", c);
-    //                 setCategory(c.name);
-    //             })
-    //         })
-    //         .catch(err => {
-    //             console.error('Error:', err);
-    //         });
-    // }, [id]);
     return (
         <div className='content'>
             <Box sx={{
