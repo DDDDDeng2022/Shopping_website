@@ -1,8 +1,14 @@
 [{
+  "_id": {
+    "$oid": "65a26e02a2a20ae4f6928ed5"
+  },
   "name": "Admin",
   "description": "Admin could list products and sell"
 },
 {
+  "_id": {
+    "$oid": "65a26e3ca2a20ae4f6928ed7"
+  },
   "name": "User",
   "description": "User could only purchase products"
 }]
