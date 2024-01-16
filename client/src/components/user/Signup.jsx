@@ -31,15 +31,17 @@ export default function SignupPage() {
         }
         else {
             try {
-                const response = apiCall({ url: '/api/auth/signup', method: 'POST', data: { email, password, role: signUpAsAdmin ? 'Admin' : 'User' } });
-                if (response.status === 201) {
-                    dispatch(setIsLogin(true));
-                    localStorage.setItem('token', response.token);
-                    navigate(`/`);
-                }
-                else {
-                    navigate('/error')
-                }
+                apiCall({ url: '/api/auth/signup', method: 'POST', data: { email, password, role: signUpAsAdmin ? 'Admin' : 'User' } }).then((response) => {
+                    console.log(response);
+                    if (response.status === 201) {
+                        dispatch(setIsLogin(true));
+                        localStorage.setItem('token', response.token);
+                        navigate(`/`);
+                    }
+                    else {
+                        navigate('/error')
+                    }
+                });
             } catch (error) {
                 console.error('Login error: ', error);
                 alert(`An error occurred: ${error.message || 'Unknown error'}`);

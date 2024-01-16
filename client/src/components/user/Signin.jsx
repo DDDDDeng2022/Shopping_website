@@ -23,16 +23,17 @@ export default function SigninPage() {
     };
     const handleSignIn = async () => {
         try {
-            const response = await apiCall({ url: '/api/auth/login', method: 'POST', data: { email, password } });
-            if (response.status === 201) {
-                dispatch(setIsLogin(true));
-                dispatch(setUser({ id: response.user_id, name: response.user_name, role: response.role, cart: response.cart }));
-                localStorage.setItem('token', response.token);
-                navigate(`/`);
-            } else {
-                setAlertText(`Email or Password is wrong!`);
-                setOpenAlertDialog(true);
-            }
+            await apiCall({ url: '/api/auth/login', method: 'POST', data: { email, password } }).then(response => {
+                if (response.status === 201) {
+                    dispatch(setIsLogin(true));
+                    dispatch(setUser({ id: response.user_id, name: response.user_name, role: response.role, cart: response.cart }));
+                    localStorage.setItem('token', response.token);
+                    navigate(`/`);
+                } else {
+                    setAlertText(`Email or Password is wrong!`);
+                    setOpenAlertDialog(true);
+                }
+            });
         } catch (error) {
             console.error('Login error: ', error);
             alert(`An error occurred: ${error.message || 'Unknown error'}`);
