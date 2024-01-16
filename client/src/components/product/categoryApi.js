@@ -13,5 +13,19 @@ async function getCategories() {
         throw error;
     }
 }
+async function getCategory(category_id) {
+    try {
+        const response = await fetch(`${CATEGORY_URL}/${category_id}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const category = await response.json();
+        console.log("cate: ", category);
+        return category.category;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
 
-export { getCategories };
+export { getCategories, getCategory };

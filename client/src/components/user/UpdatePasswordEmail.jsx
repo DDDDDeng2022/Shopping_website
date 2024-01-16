@@ -25,7 +25,9 @@ export default function UpdatePasswordPage() {
         }
         else {
             apiCall({ url: `/api/user/email/${encodeURIComponent(email)}`, method: 'GET' }).then((user) => {
-                if (user) {
+                console.log("user: ", user);
+                console.log("user._id: ", user._id);
+                if (user._id) {
                     navigate(`/sentEmail`, { state: { userId: user._id } });
                 }
                 else {

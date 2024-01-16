@@ -4,15 +4,22 @@ import { useParams } from 'react-router-dom';
 import ProductButton from './ProductButton';
 import { Img, StyledTypography } from './styledFile/detailedProductPageStyle';
 import { getProductById } from './productApi';
+import { getCategory } from './categoryApi';
 import "../../App.css"
 
 function ProductDetailPage() {
     let { id } = useParams();
     const [product, setProduct] = React.useState(null);
+    const [category, setCategory] = React.useState("");
     React.useEffect(() => {
         getProductById(id)
             .then(data => {
                 setProduct(data);
+                getCategory(data.category)
+                    .then(c => {
+                        console.log("cccc: ", c);
+                        setCategory(c.name);
+                    })
             })
             .catch(err => {
                 console.error('Error:', err);
@@ -45,7 +52,7 @@ function ProductDetailPage() {
                     }}>
                     <Grid item>
                         <Typography variant="caption" sx={{ color: "#7d7d7d" }}>
-                            Category1
+                            {category}
                         </Typography>
                         <StyledTypography gutterBottom component="div" sx={{
                             color: "#5c5959",
