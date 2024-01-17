@@ -21,6 +21,7 @@
 ##### Front-end web application framework
 
 - React
+  - Vite
   - Material UI
   - React Redux
   - React router dom
