@@ -15,21 +15,41 @@
 ##### Back-end web application framework
 
 - Express.JS
+- Dotenv
+- Jsonwebtoken
 
 ##### Front-end web application framework
 
 - React
   - Material UI
+  - React Redux
+  - React router dom
 
 ##### Databases
 
 - NoSQL
   - MongoDB
+    - mongoose
 
 ## Repo format
 
-- `client` is frontend
-- `server` is backend
+- `client` 
+  - for frontend
+  - `src` 
+    - for all code
+    - `components`
+    - `redux`
+    - `services`
+- `server` 
+  - for backend
+  - `controllers`
+  - `db`
+  - `middleware`
+  - `routers`
+- `dbInitData` 
+  - for database initialized data
+- `uploads` 
+  - for user uploaded product image from local
 
 ```
 ├── README.md

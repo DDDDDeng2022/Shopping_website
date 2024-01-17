@@ -1,0 +1,308 @@
+[
+    {
+        "name": "iphone15 pro",
+        "description": "Apple iPhone 15 Pro (512 GB) - Black Titanium | [Locked] | Boost Infinite plan required starting at $60/mo. | Unlimited Wireless | No trade-in needed to start | Get the latest iPhone every year",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 1299,
+        "quantity": 12,
+        "link": "https://m.media-amazon.com/images/I/71hDhuRKjqL._AC_SX679_.jpg",
+        "user": {
+            "$oid": "64d1aac8b4fef8c552b1749b"
+        }
+    },
+    {
+        "name": "iphone15 plus",
+        "description": "Apple iPhone 15 Plus (128 GB) - Pink | [Locked] | Boost Infinite plan required starting at $60/mo. | Unlimited Wireless | No trade-in needed to start | Get the latest iPhone every year",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 929,
+        "quantity": 12,
+        "link": "https://m.media-amazon.com/images/I/71iNOcZuxEL.__AC_SY445_SX342_QL70_FMwebp_.jpg",
+        "user": {
+            "$oid": "64d1aac8b4fef8c552b1749b"
+        }
+    },
+    {
+        "name": "AirPods Pro 2",
+        "description": "Apple AirPods Pro (2nd Generation) Wireless Ear Buds with USB-C Charging, Up to 2X More Active Noise Cancelling Bluetooth Headphones, Transparency Mode, Adaptive Audio, Personalized Spatial Audio",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 189,
+        "quantity": 12,
+        "link": "https://m.media-amazon.com/images/I/61SUj2aKoEL._AC_SX679_.jpg",
+        "user": {
+            "$oid": "64d1aac8b4fef8c552b1749b"
+        }
+    },
+    {
+        "name": "Apple AirPods Max",
+        "description": "Apple AirPods Max Wireless Over-Ear Headphones, Active Noise Cancelling, Transparency Mode, Personalized Spatial Audio, Dolby Atmos, Bluetooth Headphones for iPhone – Space Gray",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 539,
+        "quantity": 12,
+        "link": "https://m.media-amazon.com/images/I/81jqUPkIVRL._AC_SX679_.jpg",
+        "user": {
+            "$oid": "64d1aac8b4fef8c552b1749b"
+        }
+    },
+    {
+        "name": "AirPods (2nd Generation) ",
+        "description": "Apple AirPods (2nd Generation) Wireless Ear Buds, Bluetooth Headphones with Lightning Charging Case Included, Over 24 Hours of Battery Life, Effortless Setup for iPhone",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 99,
+        "quantity": 12,
+        "link": "https://m.media-amazon.com/images/I/417OJaY3DAL._AC_SX679_.jpg",
+        "user": {
+            "$oid": "65a33634e915f5d229fa58bf"
+        }
+    },
+    {
+        "name": "samsung galaxy z fold 2",
+        "description": "Samsung number 1",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 1000,
+        "quantity": 12,
+        "link": "https://m.media-amazon.com/images/I/71H6vsh1DCL._AC_SY879_.jpg",
+        "user": {
+            "$oid": "65a33634e915f5d229fa58bf"
+        }
+    },
+    {
+        "name": "Facial Spray with Aloe",
+        "description": "Mario Badescu Facial Spray with Aloe, Herbs and Rose Water for All Skin Types, Face Mist that Hydrates, Rejuvenates & Clarifies",
+        "category": {
+            "$oid": "65a47758fadf6ab750f6d9f5"
+        },
+        "price": 10,
+        "quantity": 10,
+        "link": "https://m.media-amazon.com/images/I/71HBFaf-ZVL._AC_UL640_FMwebp_QL65_.jpg",
+        "user": {
+            "$oid": "65a33634e915f5d229fa58bf"
+        }
+    },
+    {
+        "name": "iphone14",
+        "description": "test 1",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 999,
+        "quantity": 250,
+        "link": "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?$acc-lg$&hei=350&wid=350&hei=520&wid=360&fmt=webp-alpha",
+        "user": {
+            "$oid": "65a33634e915f5d229fa58bf"
+        }
+    },
+    {
+        "name": "iphone15",
+        "description": "test2",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 999,
+        "quantity": 250,
+        "link": "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?$acc-lg$&hei=350&wid=350&hei=520&wid=360&fmt=webp-alpha",
+        "user": {
+            "$oid": "64c0e9f318611017667f78bb"
+        }
+    },
+    {
+        "name": "samsung Z fold 5, 5G",
+        "description": "amazing fold phone",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 1399,
+        "quantity": 100,
+        "link": "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?$acc-lg$&hei=350&wid=350&hei=520&wid=360&fmt=webp-alpha",
+        "user": {
+            "$oid": "64c0e9f318611017667f78bb"
+        }
+    },
+    {
+        "name": "Barbie doll pink",
+        "description": "Barbie The Movie Doll, Margot Robbie as Barbie, Collectible Doll Wearing Pink and White Gingham Dress with Daisy Chain Necklace for 6 years and up",
+        "category": {
+            "$oid": "65a47446b51934062d8a1b32"
+        },
+        "price": 12,
+        "quantity": 10,
+        "link": "https://m.media-amazon.com/images/I/71Vsqfn54EL._AC_SX679_.jpg",
+        "user": {
+            "$oid": "64c0e9f318611017667f78bb"
+        }
+    },
+    {
+        "name": "LEGO Creator 3 in 1 Cozy House",
+        "description": "LEGO Creator 3 in 1 Cozy House Building Kit, Rebuild into 3 Different Houses, Includes Family Minifigures and Accessories, DIY Building Toy Ideas for Outdoor Play for Kids, Boys and Girls, 31139",
+        "category": {
+            "$oid": "65a47446b51934062d8a1b32"
+        },
+        "price": 25,
+        "quantity": 1,
+        "link": "https://m.media-amazon.com/images/I/81iZFOk+7BL._AC_SY300_SX300_.jpg",
+        "user": {
+            "$oid": "64c0e9f318611017667f78bb"
+        }
+    },
+    {
+        "name": "Kiehl's Facial Cream 125 ml Jar",
+        "description": " Since 1851 Ultra ",
+        "category": {
+            "$oid": "65a47758fadf6ab750f6d9f5"
+        },
+        "price": 30,
+        "quantity": 0,
+        "link": "https://m.media-amazon.com/images/I/41e2g0ZvEFL._SX300_SY300_QL70_FMwebp_.jpg",
+        "user": {
+            "$oid": "64c393b5a67765b28f87383a"
+        }
+    },
+    {
+        "name": "Plush Elephant",
+        "description": "Lambs & Ivy Jungle Safari Gray Plush Elephant Stuffed Animal Toy Plushie - Jett",
+        "category": {
+            "$oid": "65a47446b51934062d8a1b32"
+        },
+        "price": 21,
+        "quantity": 10,
+        "link": "https://m.media-amazon.com/images/I/81IPJqjBjkL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+        "user": {
+            "$oid": "64c393b5a67765b28f87383a"
+        }
+    },
+    {
+        "name": "Bunny Plush",
+        "description": "Burrow Bunny Rabbit Stuffed Animal (9 inches)",
+        "category": {
+            "$oid": "65a47446b51934062d8a1b32"
+        },
+        "price": 12,
+        "quantity": 0,
+        "link": "https://m.media-amazon.com/images/I/81vLnk3ZB3L._AC_UL640_FMwebp_QL65_.jpg",
+        "user": {
+            "$oid": "64c236ae26cf851a9e4ab459"
+        }
+    },
+    {
+        "name": "LEGO Marvel The Hulkbuster",
+        "description": "LEGO Marvel The Hulkbuster: The Battle of Wakanda 76247, Action Figure, Buildable Toy with Hulk Bruce Banner Minifigure, Avengers: Infinity War Set for Kids",
+        "category": {
+            "$oid": "65a47446b51934062d8a1b32"
+        },
+        "price": 30,
+        "quantity": 3,
+        "link": "https://m.media-amazon.com/images/I/81AVQ-ZJjXL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+        "user": {
+            "$oid": "64c896cad17b235d4bb80808"
+        }
+    },
+    {
+        "name": "CeraVe Moisturizing Cream ",
+        "description": "CeraVe Moisturizing Cream | Body and Face Moisturizer for Dry Skin | Body Cream with Hyaluronic Acid and Ceramides | Hydrating Moisturizer | Fragrance Free Non-Comedogenic | 19 Ounce",
+        "category": {
+            "$oid": "65a47758fadf6ab750f6d9f5"
+        },
+        "price": 22,
+        "quantity": 12,
+        "link": "https://m.media-amazon.com/images/I/51IH9um3EKL._SX300_SY300_QL70_FMwebp_.jpg",
+        "user": {
+            "$oid": "64c896cad17b235d4bb80808"
+        }
+    },
+    {
+        "name": "Barbie doll movie version",
+        "description": "Barbie Doll and Accessories Playset with Blonde Doll, Mommy Dog, 3 Puppies and 11 Pieces, Newborn Pups Set",
+        "category": {
+            "$oid": "65a47446b51934062d8a1b32"
+        },
+        "price": 11,
+        "quantity": 100,
+        "link": "https://m.media-amazon.com/images/I/71+I3hfh5mL._AC_SX300_SY300_.jpg",
+        "user": {
+            "$oid": "64c896cad17b235d4bb80808"
+        }
+    },
+    {
+        "name": "e.l.f. SKIN Hydrated Ever After Skincare Mini Kit",
+        "description": "e.l.f. SKIN Hydrated Ever After Skincare Mini Kit, Cleanser, Makeup Remover, Moisturizer & Eye Cream For Hydrating Skin, TSA-friendly Sizes",
+        "category": {
+            "$oid": "65a47758fadf6ab750f6d9f5"
+        },
+        "price": 20,
+        "quantity": 10,
+        "link": "https://m.media-amazon.com/images/I/81jQG6OJ6ML._AC_UL640_FMwebp_QL65_.jpg",
+        "user": {
+            "$oid": "64c896cad17b235d4bb80808"
+        }
+    },
+    {
+        "name": "HP DeskJet 2755e Wireless Color inkjet-printer",
+        "description": "HP DeskJet 2755e Wireless Color inkjet-printer, Print, scan, copy, Easy setup, Mobile printing, Best-for home, Instant Ink with HP+,white",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 79,
+        "quantity": 20,
+        "link": "https://m.media-amazon.com/images/I/61S+R5SLmrL._AC_SX679_.jpg",
+        "user": {
+            "$oid": "64c896cad17b235d4bb80808"
+        }
+    },
+    {
+        "name": "Wolf Warrior 1",
+        "description": "Wu Jing No.1",
+        "category": "toys",
+        "price": 999,
+        "quantity": 10,
+        "link": "https://i2.letvimg.com/lc03_isvrs/201504/02/11/02/56cebaa6-6634-4265-ae78-11d5cfa5a19e.jpg",
+        "user": {
+            "$oid": "64c896cad17b235d4bb80808"
+        }
+    },
+    {
+        "name": "iphone15 pro max",
+        "description": "123123123",
+        "category": "shoes-accessories",
+        "price": 100,
+        "quantity": 20,
+        "link": "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?$acc-lg$&hei=350&wid=350&hei=520&wid=360&fmt=webp-alpha",
+        "user": {
+            "$oid": "64d82462fb1ddc9a81dcaea4"
+        }
+    },
+    {
+        "name": "samsung galaxy z fold 2",
+        "description": "hello world",
+        "category": {
+            "$oid": "65a47748fadf6ab750f6d9f3"
+        },
+        "price": 50,
+        "quantity": 1,
+        "link": "https://m.media-amazon.com/images/I/71H6vsh1DCL._AC_SY879_.jpg",
+        "user": {
+            "$oid": "64d1bb9acad8939eadbad567"
+        }
+    },
+    {
+        "name": "iphone 15",
+        "description": "good phone",
+        "category": "digital-products",
+        "price": 2000,
+        "quantity": 1,
+        "link": "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?$acc-lg$&hei=350&wid=350&hei=520&wid=360&fmt=webp-alpha",
+        "user": {
+            "$oid": "64d82fb4f3db81167c6aeef5"
+        }
+    }
+]

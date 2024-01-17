@@ -1,0 +1,47 @@
+[{
+  "_id": {
+    "$oid": "64d1bb9acad8939eadbad567"
+  },
+  "email": "hanyu@gmail.com",
+  "password": "$2b$10$4C/lXvUtWEZiHBftcgArfuv.HOOpvCusEJWQlLH6cetwe5KQV2JKO",
+  "products": [
+    {
+      "$oid": "64d82a10fb1ddc9a81dcaef7"
+    }
+  ],
+  "cart": [
+    {
+      "$oid": "64d1b964b4fef8c552b176b9"
+    },
+    {
+      "$oid": "64d1b964b4fef8c552b176b9"
+    },
+    {
+      "$oid": "64c5dd4fa433ba47ddce80ec"
+    },
+    {
+      "$oid": "64d7b3150163c8548c69dca8"
+    },
+    {
+      "$oid": "64c5dd4fa433ba47ddce80ec"
+    },
+    {
+      "$oid": "64d7b3150163c8548c69dca8"
+    }
+  ],
+  "__v": 45
+},
+{
+  "_id": {
+    "$oid": "64d82462fb1ddc9a81dcaea4"
+  },
+  "email": "3333@gmail.com",
+  "password": "$2b$10$Xi0XDDW9kFr3GYbIX3czReaUFh89LSdgQuXV7gEDL9GaQ9i4GjgtS",
+  "products": [
+    {
+      "$oid": "64d829adfb1ddc9a81dcaed7"
+    }
+  ],
+  "cart": [],
+  "__v": 3
+}]
